@@ -1,11 +1,25 @@
 # In-band OAM (iOAM)
 
-
-# Introduction
-
 iOAM is an implementation study to record operational information invthe packet while the packet traverses a path between two points in
 the network.iOAM is to complement current out-of-band OAM (sometimes also called "active" OAM) mechanisms based on ICMP or other types of probe packets.
-iOAM defines a set of meta-data that is carried as part of the live traffic, i.e. it is added to the packets.  In-band OAM mechanisms, which are sometimes also referred to as embedded network telemetry or passive OAM are an active topic of discussions. In-band network telemetry has been defined for P4 [P4] and the SPUD prototype (see [I-D.hildebrand-spud-prototype]) uses a similar logic in that it allows network devices on the path between endpoints to participate explicitly in the tube outside the end-to-end context.  Even the IPv4
+   
+# Team:
+- Frank Brockners
+- Shwetha Bhandari
+- Srihari Raghavan
+- Ranganathan T.S
+- Karthik Babu Harichandra Babu 
+- Vengada Prasad Govindan 
+- Ananthakrishnan Rajamani
+- Sagar Srivatsav
+- Manaswi G Reddy
+
+# Current Status
+In development. Initial beta version availble in VPP [fd.io]
+
+# Overview
+
+"in-band" operation, administration, and maintenance (iOAM) mechanisms to record OAM information in a packet while the packet traverses a particular network domain. iOAM is an implementation study to record operational information in the packet while the packet traverses a path between two points in the network. iOAM defines a set of meta-data that is carried as part of the live traffic, i.e. it is added to the packets.  In-band OAM mechanisms, which are sometimes also referred to as embedded network telemetry or passive OAM are an active topic of discussions. In-band network telemetry has been defined for P4 [P4] and the SPUD prototype (see [SPUD]) uses a similar logic in that it allows network devices on the path between endpoints to participate explicitly in the tube outside the end-to-end context.  Even the IPv4
 route-record option defined in [RFC0791] can be considered an in-band OAM mechanism.  This draft defines several transport options for carrying iOAM meta-data in packets.  Those transport options include plain IPv4 and IPv6 as well as VXLAN-GPE, Segment Routing for IPv6 and Network Service Header (NSH).
 
   iOAM is to complement "out-of-band" or "active" mechanisms such as
@@ -47,4 +61,18 @@ route-record option defined in [RFC0791] can be considered an in-band OAM mechan
    
    
 
+# References
 
+
+ - [SPUD]
+              Hildebrand, J. and B. Trammell, "Substrate Protocol for
+              User Datagrams (SPUD) Prototype", draft-hildebrand-spud-
+              prototype-03 (work in progress), March 2015.
+ - [P4]       Kim, , "P4: In-band Network Telemetry (INT)", September
+              2015.
+
+
+[p4]: http://p4.org/p4/inband-network-telemetry/
+[SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
+[fd.io]: http://fd.io
+[RFC0791]: https://tools.ietf.org/html/rfc0791.html
