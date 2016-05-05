@@ -97,6 +97,7 @@ route-record option defined in [RFC0791] can be considered an in-band OAM mechan
    In-band mechanisms also don't suffer from implementations, where
    probe traffic is handled differently (and potentially forwarded
    differently) by a router than regular data traffic.
+## ![](/images/ioam-telemetry.png)
    
 ## Overlay and underlay correlation
 
@@ -168,6 +169,8 @@ In addition, with individual path recording, information is available at packet 
    above described indirect methods of proving that a service chain is
    in place for a particular application.
 
+## ![](/images/sfc-verification-1.png)
+
    A solution approach is based on meta-data which is added to every
    packet.  The meta data is updated at every hop and is used to verify
    whether a packet traversed all required nodes.  A particular path is
@@ -186,6 +189,7 @@ In addition, with individual path recording, information is available at packet 
    verification are beyond the scope of this document.  Details will be
    addressed in a separate document.
 
+## ![](/images/sfc-verification-2.png)
 
 ## Frame replication/elimination decision for bi-casting/active-active networks
 
@@ -230,6 +234,18 @@ Bandwidth- and power-constrained, time-sensitive, or loss-intolerant networks (e
     <td>Proof and verification of packets traversing check points in the network, where check points can be nodes in the network or service functions. </td>
   </tr>
 </table>
+
+# iOAM6 operation overview 
+
+Sending probe traffic for OAM purposes is often not feasible. OAM probe traffic adds additional load to both the end-point as well as to the network, tampering measurements and creating an additional burden for low-power networks. In addition, routers forward OAM differently from regular data traffic (slow-path vs. fast path). Packet scheduling algorithms, especially for balancing traffic across equal cost paths or links, often leverage information contained within the packet, such as protocol number, IP-address or MAC-address. Probe packets would thus either need to be sent from the exact same endpoints with the exact same parameters, or probe packets would need to be artificially constructed as "fake" packets and inserted along the path. Both approaches are sometimes not feasible from an operational perspective, be it that access 
+
+to the end-system is not feasible, or that the diversity of parameters and associated probe packets to be created is simply too large.
+
+An in-band OAM mechanism is an alternative in those cases. With iOAM every router along the path in a specific operational domain inserts information which identifies the router and additional information such as ingress or egress interface identifiers, timestamps, or application metadata. 
+
+The figure below shows an example. Routers R1, R2, R3, R4 form a domain within which iOAM is enabled. Router R1 inserts the new iOAM6 extension header, which gets updated as the packet traverses the network. Router R4 removes the iOAM metadata. Depending on the configuration of R4 it will export iOAM related data via Netflow or other means.
+
+## ![](/images/image_0.png)
 
    
 
