@@ -57,8 +57,75 @@ route-record option defined in [RFC0791] can be considered an in-band OAM mechan
    iOAM is an implementation study and should be considered as a "tool
    box" to showcase how passive OAM can complement active OAM for
    different deployments and packet transport formats.  One example
-   implementation is open sourced as part of the FD.io [FD.io] project.
+   implementation is open sourced as part of the [FD.io] project.
    
+# Motivation   
+
+   In several scenarios it is beneficial to make available information
+   about which path a packet took through the network.  This includes
+   tasks like debugging, troubleshooting, as well as network planning
+   and network optimization but also policy or SLA compliance checks.
+   This section discusses the motivation to introduce new options for
+   enhanced network diagnostics.
+   
+   ## Passive OAM
+
+   Mechanisms which add tracing information to the regular data traffic,
+   sometimes also referred to as "in-band" or "passive OAM" can
+   complement active, probe-based mechanisms such as ping or traceroute,
+   which are sometimes considered as "out-of-band", because the messages
+   are transported independently from regular data traffic.  "In-band"
+   mechanisms do not require extra traffic to be sent and hence don't
+   change the traffic mix within the network.  Traceroute and ping for
+   example use ICMP messages: New packets are injected to get tracing
+   information.  Those add to the number of messages in a network, which
+   already might be highly loaded or suffering performance issues for a
+   particular path or traffic type.
+
+   Packet scheduling algorithms, especially for balancing traffic across
+   equal cost paths or links, often leverage information contained
+   within the packet, such as protocol number, IP-address or MAC-
+   address.  Probe packets would thus either need to be sent from the
+   exact same endpoints with the exact same parameters, or probe packets
+   would need to be artificially constructed as "fake" packets and
+   inserted along the path.  Both approaches are often not feasible from
+   an operational perspective, be it that access to the end-system is
+   not feasible, or that the diversity of parameters and associated
+   probe packets to be created is simply too large.  An in-band
+   mechanism is an alternative in those cases.
+
+   In-band mechanisms also don't suffer from implementations, where
+   probe traffic is handled differently (and potentially forwarded
+   differently) by a router than regular data traffic.
+   
+   ## Overlay and underlay correlation
+
+   Several network deployments leverage tunneling mechanisms to create
+   overlay or service-layer networks.  Examples include VXLAN, GRE, or
+   LISP.  One typical attribute of overlay networks is that they do not
+   offer the user of the overlay any insight into the underlay network.
+   This means that the path that a particular tunneled packet takes, nor
+   other operational details such as the per-hop delay/jitter in the
+   underlay are visible to the user of the overlay network, giving rise
+   to diagnosis and debugging challenges in case of connectivity or
+   performance issues.  The scope of OAM tools like ping or traceroute
+   is limited to either the overlay or the underlay which means that the
+   user of the overlay has typically no access to OAM in the underlay,
+   unless specific operational procedures are put in place.  With in-
+   band OAM the operator of the underlay can offer details of the
+   connectivity in the underlay to the user of the overlay.  The
+   operator of the egress tunnel router could choose to share the
+   recorded information about the path with the user of the overlay.
+   
+   Coupled with mechanisms such as segment routing
+   [segment-routing], overlay network and underlay
+   network can be more tightly coupled: The user of the overlay has
+   detailed diagnostic information available in case of failure
+   conditions.  The user of the overlay can also use the path recording
+   information as input to traffic steering or traffic engineering
+   mechanisms, to for example achieve path symmetry for the traffic
+   between two endpoints.  [lisp-sr] is an example for how
+   these methods can be applied to LISP.
    
 
 # References
@@ -70,9 +137,24 @@ route-record option defined in [RFC0791] can be considered an in-band OAM mechan
               prototype-03 (work in progress), March 2015.
  - [P4]       Kim, , "P4: In-band Network Telemetry (INT)", September
               2015.
-
+ - [segment-routing] Filsfils, C., Previdi, S., Bashandy, A., Decraene, B.,
+              Litkowski, S., Horneffer, M., Milojevic, I., Shakir, R.,
+              Ytti, S., Henderickx, W., Tantsura, J., and E. Crabbe,
+              "Segment Routing Architecture", draft-filsfils-rtgwg-
+              segment-routing-07 (work in progress), June 2016.
+ - [segment-routing-header]
+              Previdi, S., Filsfils, C., Field, B., Leung, I., Linkova,
+              J., Kosugi, T., Vyncke, E., and D. Lebrun, "IPv6 Segment
+              Routing Header (SRH)", draft-ietf-6man-segment-routing-
+              header-01 (work in progress), March 2016.
+ - [lisp-sr]  Brockners, F., Systems, C., Maino, F., and D. Lewis, "LISP
+              Extensions for Segment Routing", draft-brockners-lisp-
+              sr-00 (work in progress), July 2013.
 
 [p4]: http://p4.org/p4/inband-network-telemetry/
 [SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
 [fd.io]: http://fd.io
 [RFC0791]: https://tools.ietf.org/html/rfc0791.html
+[segment-routing]: https://tools.ietf.org/html/draft-ietf-spring-segment-routing-07
+[segment-routing-header]: https://tools.ietf.org/html/draft-ietf-6man-segment-routing-header-01
+[lisp-sr]: https://tools.ietf.org/html/draft-brockners-lisp-sr-01
