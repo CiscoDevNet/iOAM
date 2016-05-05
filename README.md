@@ -134,6 +134,8 @@ Network planners and operators benefit from knowledge of the actual traffic dist
 
 In addition, with individual path recording, information is available at packet level granularity, rather than only at aggregate level - as is usually the case with IPFIX-style methods which employ flow- filters at the network elements.  Data-center networks with heavy use of equal-cost multipath (ECMP) forwarding are one example where detailed statistics on flow distribution in the network are highly desired.  If a network supports ECMP one can create detailed statistics for the different paths packets take through the network at the egress system, without a need to correlate/aggregate statistics from every router in the system.  Transit devices are off-loaded from the task of gathering packet statistics.
 
+## ![](/images/image_2.jpg)
+
 ## Proof of Transit
 
    Several deployments use traffic engineering, policy routing, segment
@@ -235,7 +237,7 @@ Bandwidth- and power-constrained, time-sensitive, or loss-intolerant networks (e
   </tr>
 </table>
 
-# iOAM6 operation overview 
+# iOAM operation overview 
 
 Sending probe traffic for OAM purposes is often not feasible. OAM probe traffic adds additional load to both the end-point as well as to the network, tampering measurements and creating an additional burden for low-power networks. In addition, routers forward OAM differently from regular data traffic (slow-path vs. fast path). Packet scheduling algorithms, especially for balancing traffic across equal cost paths or links, often leverage information contained within the packet, such as protocol number, IP-address or MAC-address. Probe packets would thus either need to be sent from the exact same endpoints with the exact same parameters, or probe packets would need to be artificially constructed as "fake" packets and inserted along the path. Both approaches are sometimes not feasible from an operational perspective, be it that access 
 
@@ -247,8 +249,12 @@ The figure below shows an example. Routers R1, R2, R3, R4 form a domain within w
 
 ## ![](/images/image_0.png)
 
-   
+## ![](/images/ioam-domain-trace.png)   
 
+# iOAM solution ecosystem
+
+## ![](/images/ioam-ecosystem.png)
+ 
 # References
 
 
