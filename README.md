@@ -255,7 +255,7 @@ The figure below shows an example. Routers R1, R2, R3, R4 form a domain within w
 
 Below is an example iOAM solution ecosystem with IPv6 transport:
 
-- Forwaring plane: iOAM feature to insert, updata and remove metadata from the packets is implemented in VPP forwarding plane
+- Forwarding plane: iOAM feature to insert, updata and remove metadata from the packets is implemented in VPP forwarding plane
 - Controller: Opendaylight controller and iOAM applications control and orchestrate iOAM processing and configuration 
 - Collectors: iOAM metadata is exported as netflow records and json objects as needed. This is collected using pmacctd netflow collector or published into message bus such as Apache Kafka
 - Analyzers: iOAM metadata collected is analyzed for anomalies using offbox or on-box applications
