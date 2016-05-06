@@ -15,7 +15,7 @@ the network.iOAM is to complement current out-of-band OAM (sometimes also called
 - Manaswi G Reddy
 
 # Current Status
-In development. Initial beta version availble in VPP [fd.io]
+In development
 
 # Overview
 
@@ -255,7 +255,7 @@ The figure below shows an example. Routers R1, R2, R3, R4 form a domain within w
 
 Below is an example iOAM solution ecosystem with IPv6 transport:
 
-- Forwarding plane: iOAM feature to insert, updata and remove metadata from the packets is implemented in VPP forwarding plane
+- Forwarding plane: iOAM feature to insert, updata and remove metadata from the packets is implemented in VPP forwarding plane (See [VPP iOAM configuration]
 - Controller: Opendaylight controller and iOAM applications control and orchestrate iOAM processing and configuration 
 - Collectors: iOAM metadata is exported as netflow records and json objects as needed. This is collected using pmacctd netflow collector or published into message bus such as Apache Kafka
 - Analyzers: iOAM metadata collected is analyzed for anomalies using offbox or on-box applications
@@ -264,6 +264,10 @@ Below is an example iOAM solution ecosystem with IPv6 transport:
 
 
 ## ![](/images/ioam-ecosystem.png)
+
+# Code
+Forwarding plane is work in progress in [VPP] 
+Controller and other application enhancements will be added soon
  
 # References
 
@@ -295,3 +299,5 @@ Below is an example iOAM solution ecosystem with IPv6 transport:
 [segment-routing]: https://tools.ietf.org/html/draft-ietf-spring-segment-routing-07
 [segment-routing-header]: https://tools.ietf.org/html/draft-ietf-6man-segment-routing-header-01
 [lisp-sr]: https://tools.ietf.org/html/draft-brockners-lisp-sr-01
+[VPP ioam configuration]: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands
+[VPP]: http://wiki.fd.io/view/VPP
