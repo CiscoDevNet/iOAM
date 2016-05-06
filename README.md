@@ -266,8 +266,8 @@ Below is an example iOAM solution ecosystem with IPv6 transport:
 ## ![](/images/ioam-ecosystem.png)
 
 # Code
-Forwarding plane is work in progress in [VPP] 
-Controller and other application enhancements will be added soon
+- Forwarding plane is work in progress in [VPP].
+- Controller and other application enhancements will be added soon.
  
 # References
 
