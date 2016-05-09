@@ -1,6 +1,6 @@
 # In-band OAM (iOAM)
 
-iOAM is an implementation study to record operational information invthe packet while the packet traverses a path between two points in
+iOAM is an implementation study to record operational information in the packet while the packet traverses a path between two points in
 the network.iOAM is to complement current out-of-band OAM (sometimes also called "active" OAM) mechanisms based on ICMP or other types of probe packets.
    
 # Team:
