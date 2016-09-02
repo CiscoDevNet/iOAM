@@ -1,0 +1,4 @@
+  set pot profile name example id 0 prime-number 0xffffffbd3f0331 secret_share 0x23dc164fa011aa lpc 0x1 polynomial2 0x5dc0a0163d348 bits-in-random 56
+ set pot profile name example id 0 prime-number 0xffffffbd3f0331 secret_share 0x3fc03a91e02ea lpc 0x3 polynomial2 0x1fc0011e554b0 bits-in-random 56
+   set pot profile name example id 0 validate-key 0xffffffbd3f032f prime-number 0xffffffbd3f0331 secret_share 0xff00b18fe08ce lpc 0xffffffbd3f032e polynomial2 0x3f00367b145c8 bits-in-random 56
+`
