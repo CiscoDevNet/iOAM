@@ -21,7 +21,7 @@
 #include "pot_util.h"
 
 #define MAX_STR_LEN 300
-#define MAX_SERVICES 10
+#define MAX_SERVICES 101
 
 pot_profile profile[MAX_SERVICES];
 
