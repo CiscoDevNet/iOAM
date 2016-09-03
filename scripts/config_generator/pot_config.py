@@ -69,19 +69,19 @@ def main(argv):
     secret_1 = coeff_poly_1[0]
     coeff_poly_1 = coeff_poly_1[1:]
     coeff_poly_2 = coeff_poly_2[1:]
-    service_indices = list(range(2,num_of_transit_points*2+1,2))
-    random.shuffle(service_indices)
+    node_indices = list(range(2,num_of_transit_points*2+1,2))
+    random.shuffle(node_indices)
     # polynomial(index) + secret
-    secret_share_poly_1=[eval_modded_poly(coeff_poly_1,index,prime)+secret_1 for index in service_indices]
+    secret_share_poly_1=[eval_modded_poly(coeff_poly_1,index,prime)+secret_1 for index in node_indices]
     secret_share_poly_1 = [x%prime for x in secret_share_poly_1]
     # polynomial(index)
-    public_poly_2 = [eval_modded_poly(coeff_poly_2,index,prime) for index in service_indices]
+    public_poly_2 = [eval_modded_poly(coeff_poly_2,index,prime) for index in node_indices]
     # multiply -1*index with every other members of the list
-    lpc_num = [mul_list_int(service_indices[:index]+service_indices[index+1:],-1) for index in range(num_of_transit_points)]
+    lpc_num = [mul_list_int(node_indices[:index]+node_indices[index+1:],-1) for index in range(num_of_transit_points)]
     # multiply all the members of the list and mod them with prime
     lpc_num=[reduce(lambda x,y:x*y, elem)%prime for elem in lpc_num]
     # subtract index from every other members of the list
-    lpc_den = [sub_from_list_int(service_indices[:index]+service_indices[index+1:],service_indices[index]) for index in range(num_of_transit_points)]
+    lpc_den = [sub_from_list_int(node_indices[:index]+node_indices[index+1:],node_indices[index]) for index in range(num_of_transit_points)]
     # multiply all the members of the list and mod them with prime
     lpc_den=[reduce(lambda x,y:x*y, elem)%prime for elem in lpc_den]
     lpc = [num*modinv(den,prime) for num,den in zip(lpc_num,lpc_den)]
@@ -89,7 +89,7 @@ def main(argv):
     # print in the desired format
     if(len(argv)==2):
         print("Encap Node:")
-        print("service index",service_indices[0])
+        print("node index",node_indices[0])
         print("prime number",prime)
         print("secret_share",secret_share_poly_1[0])
         print("lpc",hex(lpc[0]))
@@ -98,7 +98,7 @@ def main(argv):
         print("")
         for i in range(1,num_of_transit_points-1):
             print("Intermediate Node {}:".format(i))
-            print("service index",service_indices[i])
+            print("node index",node_indices[i])
             print("prime number",prime)
             print("secret_share",secret_share_poly_1[i])
             print("lpc",hex(lpc[i]))
@@ -106,7 +106,7 @@ def main(argv):
             print("bits-in-random",num_of_bits)
             print("")
         print("Dencap/Verifier Node:")
-        print("service index",service_indices[-1])
+        print("node index",node_indices[-1])
         print("prime number",prime)
         print("verifier key",secret_1)
         print("secret_share",secret_share_poly_1[-1])
