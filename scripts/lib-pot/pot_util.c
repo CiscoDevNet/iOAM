@@ -283,7 +283,7 @@ pot_profile_to_str (pot_profile * profile, char *buf, int n)
   if (profile && buf)
     {
       total_written += written =
-	snprintf (buf, n, "<sc-profile> profile-id %d ", profile->id);
+	snprintf (buf, n, "<pot-profile> profile-id %d ", profile->id);
       n -= written;
       buf += written;
       if (profile->validator)
@@ -301,7 +301,7 @@ pot_profile_to_str (pot_profile * profile, char *buf, int n)
       n -= written;
       buf += written;
       total_written += written =
-	snprintf (buf, n, "bits-in-random %d</sc-profile>\n",
+	snprintf (buf, n, "bits-in-random %d</pot-profile>\n",
 		  countSetBits (profile->bit_mask));
       n -= written;
       buf += written;
