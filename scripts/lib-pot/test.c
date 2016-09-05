@@ -21,7 +21,7 @@
 #include "pot_util.h"
 
 #define MAX_STR_LEN 300
-#define MAX_SERVICES 101
+#define MAX_SERVICES 200
 
 pot_profile profile[MAX_SERVICES];
 
@@ -172,6 +172,7 @@ main (int argc, char *argv[])
   u64 random = 0;
   u64 cumulative = 0;
   int count = 0;
+  int error = 0;
   int i;
   char *cmd = "set pot profile";
   char *tail = buff;
@@ -182,6 +183,13 @@ main (int argc, char *argv[])
       tail = buff;
       if (0 != (tail = strstr (tail, cmd)))
 	{
+          if (count >= MAX_SERVICES)
+	    {
+	      printf("\n Only %d transit points are supported by this test.\n",
+		     MAX_SERVICES);
+	      error = 1;
+	      break;
+	    }
 	  /*
 	   * set pot profile name example id 0 prime-number 0xffffffbd3f0331
 	   * secret_share 0x23dc164fa011aa lpc 0x1 polynomial2 0x5dc0a0163d348
@@ -195,7 +203,7 @@ main (int argc, char *argv[])
 	}
     }
   fclose (fp);
-  if (count == 0)
+  if (error == 1 || count == 0)
     {
       printf ("\n Unable to parse profile \n");
       exit (1);
