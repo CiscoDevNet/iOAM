@@ -28,25 +28,21 @@ In development
 
 # Overview
 
-This document discusses requirements for "in-band" Operations,
-Administration, and Maintenance (OAM) mechanisms.  "In-band" OAM
-means to record OAM and telemetry information within the data packet
-while the data packet traverses a network or a particular network
-domain.  The term "in-band" refers to the fact that the OAM and
-telemetry data is carried within data packets rather than being sent
-within packets specifically dedicated to OAM.  In-band OAM
-mechanisms, which are sometimes also referred to as embedded network
-telemetry are a current topic of discussion.  In-band network
-telemetry has been defined for [P4].  The SPUD prototype
-[SPUD] uses a similar logic that allows
-network devices on the path between endpoints to participate
-explicitly in the tube outside the end-to-end context.  Even the IPv4
-route-record option defined in [RFC0791] can be considered an in-band
-OAM mechanism.  In-band OAM complements "out-of-band" mechanisms such
-as ping or traceroute, or more recent active probing mechanisms, as
-described in [I-D.lapukhov-dataplane-probe].  In-band OAM mechanisms
-can be leveraged where current out-of-band mechanisms do not apply or
-do not offer the desired characteristics or requirements, such as
+"In-band" OAM describes an approach to record OAM and telemetry information
+within the data packet while the data packet traverses a network or a
+particular network domain.  The term "in-band" refers to the fact that the OAM
+and telemetry data is carried within data packets rather than being sent
+within packets specifically dedicated to OAM.  In-band OAM mechanisms, which
+are sometimes also referred to as embedded network telemetry are a current
+topic of discussion.  In-band network telemetry has been defined for [P4].  The
+SPUD prototype [SPUD] uses a similar logic that allows
+network devices on the path between endpoints to participate explicitly in the
+tube outside the end-to-end context.  Even the IPv4 route-record option defined
+in [RFC0791] can be considered an in-band OAM mechanism.  In-band OAM
+complements "out-of-band" mechanisms such as ping or traceroute, or more recent
+active probing mechanisms, as described in [I-D.lapukhov-dataplane-probe].
+In-band OAM mechanisms can be leveraged where current out-of-band mechanisms do
+not apply or do not offer the desired characteristics or requirements, such as
 proving that a certain set of traffic takes a pre-defined path,
 strict congruency is desired, checking service level agreements for
 the live data traffic, detailed statistics on traffic distribution
