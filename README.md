@@ -1,7 +1,10 @@
 # In-band OAM (iOAM)
 
-iOAM is an implementation study to record operational information in the packet while the packet traverses a path between two points in
-the network.iOAM is to complement current out-of-band OAM (sometimes also called "active" OAM) mechanisms based on ICMP or other types of probe packets.
+In-band OAM (or "in situ OAM") is an implementation study to record operational
+information in the packet while the packet traverses a path between two points
+in the network. In-band OAM is to complement current out-of-band OAM (sometimes
+also called "active" OAM) mechanisms based on ICMP or other types of probe
+packets.
    
 # Team:
 
@@ -34,7 +37,7 @@ telemetry data is carried within data packets rather than being sent
 within packets specifically dedicated to OAM.  In-band OAM
 mechanisms, which are sometimes also referred to as embedded network
 telemetry are a current topic of discussion.  In-band network
-telemetry has been defined for P4 [P4].  The SPUD prototype
+telemetry has been defined for [P4].  The SPUD prototype
 [SPUD] uses a similar logic that allows
 network devices on the path between endpoints to participate
 explicitly in the tube outside the end-to-end context.  Even the IPv4
@@ -196,3 +199,4 @@ In-band OAM is reflected in two applications within OpenDaylight:
 [lisp-sr]: https://tools.ietf.org/html/draft-brockners-lisp-sr-01
 [VPP ioam configuration]: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands
 [I-D.lapukhov-dataplane-probe]: https://tools.ietf.org/html/draft-lapukhov-dataplane-probe-01
+[RFC7276]: https://tools.ietf.org/html/rfc7276
