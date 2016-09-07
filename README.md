@@ -118,8 +118,8 @@ following IETF internet drafts:
 - The in-band OAM dataplane is implemented as a plugin in VPP:
   https://git.fd.io/cgit/vpp/tree/plugins/ioam-plugin.
 - Documentation for the in-band OAM in VPP:
-  https://git.fd.io/cgit/vpp/tree/plugins/ioam-plugin/ioam/Readme.md
-- FD.io wiki on in-band OAM configuration: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands
+  https://git.fd.io/cgit/vpp/tree/plugins/ioam-plugin/ioam/Readme.md.
+- FD.io wiki on in-band OAM configuration: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands.
 
 
 ## Dataplane implementation in Cisco IOS
@@ -132,7 +132,7 @@ in the Cisco "IPv6 Network Management Configuration Guide, Cisco IOS Release
   configuration parameters are needed. To help with
   computing the appropriate values, you can use the
   scripts provided here, see
-https://github.com/CiscoDevNet/iOAM/tree/master/scripts/config_generator
+https://github.com/CiscoDevNet/iOAM/tree/master/scripts/config_generator.
   Note that those apply mostly for the IOS dataplane application.
   For VPP, one can use the App for OpenDaylight.
 
@@ -177,7 +177,7 @@ In-band OAM is reflected in two applications within OpenDaylight:
               2015.
 
  - [I-D.lapukhov-dataplane-probe]
-              Lapukhov, P. and r. remy@barefootnetworks.com, "Data-plane
+              Lapukhov, P. and Chang R., "Data-plane
               probe for in-band telemetry collection", draft-lapukhov-
               dataplane-probe-01 (work in progress), June 2016.
 
