@@ -6,26 +6,6 @@ in the network. In-band OAM is to complement current out-of-band OAM (sometimes
 also called "active" OAM) mechanisms based on ICMP or other types of probe
 packets.
    
-# Team:
-
-Current team:
-- Frank Brockners
-- Shwetha Bhandari
-- Srihari Raghavan
-- Vengada Prasad Govindan 
-- Ananthakrishnan Rajamani
-- Akshaya Nadahalli
-- Carlos Pignataro
-
-Former team members include:
-- Ranganathan T.S
-- Karthik Babu Harichandra Babu 
-- Sagar Srivatsav
-- Manaswi G Reddy
-
-# Current Status
-In development
-
 # Overview
 
 "In-band" OAM describes an approach to record OAM and telemetry information
@@ -141,15 +121,32 @@ https://github.com/CiscoDevNet/iOAM/tree/master/scripts/config_generator.
 
 In-band OAM is reflected in two applications within OpenDaylight:
 
-- SFC: In-band OAM "Proof of Transit" can be used as part of 
+- *SFC*: In-band OAM "Proof of Transit" can be used as part of 
   OpenDaylight Service Function Chaining (SFC). The extensions to 
   ODL SFC enable ODL to serve POT control data (secrets etc.) required
   for POT. Full support is expected as part of the OpenDaylight Carbon release.
-- Tracing: Configuration application to enable and contron in-band OAM tracing.
+- *Path-tracing*: Configuration application to enable and contron in-band OAM tracing.
   The tracing application will be included in a future version of
   OpenDaylight. For now, you'll soon find it here :-). 
 
-# References
+# Additional Resources
+
+## Presentations
+
+- *In-band OAM Overview*: http://www.slideshare.net/frankbrockners/nextgen-network-telemetry-is-within-your-packets-inband-oam
+
+- *Proof of transit*: Securely verifying a path or service chain: http://www.slideshare.net/frankbrockners/proof-of-transit-securely-verifying-a-path-or-service-chain
+
+## Blogs
+
+- What if you had a trip-recorder for all your traffic at line rate performance? http://blogs.cisco.com/getyourbuildon/a-trip-recorder-for-all-your-traffic
+- Verify my service chain! http://blogs.cisco.com/getyourbuildon/verify-my-service-chain 
+
+## Demo videos on YouTube
+
+Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP590RrXw 
+
+## References
 
 
 
@@ -181,6 +178,26 @@ In-band OAM is reflected in two applications within OpenDaylight:
               Lapukhov, P. and Chang R., "Data-plane
               probe for in-band telemetry collection", draft-lapukhov-
               dataplane-probe-01 (work in progress), June 2016.
+
+# Team:
+
+Current team:
+- Frank Brockners
+- Shwetha Bhandari
+- Srihari Raghavan
+- Vengada Prasad Govindan 
+- Ananthakrishnan Rajamani
+- Akshaya Nadahalli
+- Carlos Pignataro
+
+Former team members include:
+- Ranganathan T.S
+- Karthik Babu Harichandra Babu 
+- Sagar Srivatsav
+- Manaswi G Reddy
+
+# Current Status
+In development
 
 [draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-01
 [draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-01
