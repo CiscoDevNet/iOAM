@@ -97,7 +97,12 @@ following IETF internet drafts:
 - The in-band OAM dataplane is implemented as a plugin in VPP:
   https://git.fd.io/cgit/vpp/tree/plugins/ioam-plugin.
 - Documentation for the in-band OAM in VPP:
-  https://git.fd.io/cgit/vpp/tree/plugins/ioam-plugin/ioam/Readme.md.
+  - Overview user guide: https://docs.fd.io/vpp/16.12/md_plugins_ioam-plugin_ioam_Readme.html
+  - Command line references:
+    - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_encap.html
+    - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_export.html
+    - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_lib-pot.html
+    - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_lib-trace.html
 - FD.io wiki on in-band OAM configuration: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands.
 
 
