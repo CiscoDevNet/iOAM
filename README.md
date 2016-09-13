@@ -129,10 +129,20 @@ In-band OAM is reflected in two applications within OpenDaylight:
 - *SFC*: In-band OAM "Proof of Transit" can be used as part of 
   OpenDaylight Service Function Chaining (SFC). The extensions to 
   ODL SFC enable ODL to serve POT control data (secrets etc.) required
-  for POT. Full support is expected as part of the OpenDaylight Carbon release.
+  for POT. Full support is expected as part of the OpenDaylight Carbon release.  
+
+  - The following features are supported.
+    - Utilizes Java-based libraries to generate iOAM parameters.
+    - REST/Yang based APIs for north-bound to configure iOAM via OSS like postman or via programmatic triggers.
+    - Augments and enhances base SFC application.
+    - NETCONF/Yang based APIs for south-bound.
+    - Feature capability is split into two modules to be installed: sfc-pot and sfc-pot-netconf-renderer.
+  - The following are the feature commits.
+    -  https://git.opendaylight.org/gerrit/#/c/40669/
+    -  https://git.opendaylight.org/gerrit/#/c/44449/
 - *Path-tracing*: Configuration application to enable and contron in-band OAM tracing.
   The tracing application will be included in a future version of
-  OpenDaylight. For now, you'll soon find it here :-). 
+  OpenDaylight. For now, you'll soon find it here :-).
 
 # Additional Resources
 
