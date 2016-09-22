@@ -113,7 +113,10 @@ The dataplane implementation in Cisco IOS is focused on IPv6 only.
 - Documentation for in-band OAM is found in the [In-band OAM for
    IPv6](http://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6_nman/configuration/15-mt/ip6n-15-mt-book/ioam-ipv6.html) guide of the
 "IPv6 Network Management Configuration Guide, Cisco IOS Release
-15M&T".
+15M&T". 
+- The IOS software can be downloaded from [here](https://software.cisco.com/download/navigator.html?mdfid=282774227&flowid=78210).
+IPv6 in-band OAM is supported on Cisco 1900/2900/3900/3900e Integrated Services Routers and vIOS on Cisco [VIRL] (http://virl.cisco.com/).
+
 - To configure Proof-of-Transit for IOS, a series of 
   configuration parameters are needed. To help with
   computing the appropriate values, you can use the
