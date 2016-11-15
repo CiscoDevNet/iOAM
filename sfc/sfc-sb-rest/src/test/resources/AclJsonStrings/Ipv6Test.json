@@ -1,0 +1,32 @@
+{
+  "acl": [
+    {
+      "acl-name": "ACL_NAME",
+      "access-list-entries": {
+        "ace": [
+          {
+            "rule-name": "RULE_NAME",
+            "matches": {
+              "destination-ipv6-network": "DESTINATION_IPV6_NETWORK",
+              "source-ipv6-network": "SOURCE_IPV6_NETWORK",
+              "flow-label": FLOW_LABEL,
+              "source-port-range": {
+                "upper-port": UPPER_PORT,
+                "lower-port": LOWER_PORT
+              },
+              "destination-port-range": {
+                "upper-port": UPPER_PORT,
+                "lower-port": LOWER_PORT
+              },
+              "protocol": PROTOCOL,
+              "dscp": DSCP
+            },
+            "actions": {
+              "service-function-acl:rendered-service-path": "SERVICE_FUNCTION_ACL_RENDERED_SERVICE_PATH"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

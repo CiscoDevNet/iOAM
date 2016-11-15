@@ -1,0 +1,42 @@
+Metadata-Version: 1.1
+Name: NFQP3
+Version: 0.11
+Summary: Python bindings for libnetfilter_queue pached for Python3
+Home-page: https://github.com/kti/python-netfilterqueue
+Author: Martin Lauko
+Author-email: sfc-dev@lists.opendaylight.org
+License: BSD
+Download-URL: http://pypi.python.org/packages/source/N/NetfilterQueue/NetfilterQueue-0.11.tar.gz
+Description: ==============
+        NFQP3 - NetfilterQueue patched for Python3.4
+        ==============
+        
+        NetfilterQueue provides access to packets matched by an iptables rule in
+        Linux. Packets so matched can be accepted, dropped, altered, or given a mark.
+        
+        Libnetfilter_queue (the netfilter library, not this module) is part of the
+        `Netfilter project <http://netfilter.org/projects/libnetfilter_queue/>`_.
+        
+        Installation
+        ============
+        
+        NFQP3 is a python3.4 patched NetFilterQueue  module that links against libnetfilter_queue. 
+        
+        
+        From PyPI
+        ---------
+        
+        To install from PyPI by pip3::
+        
+            pip3 install NFQP3
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Topic :: System :: Networking
+Classifier: Topic :: Security
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: Programming Language :: Cython
+Classifier: Programming Language :: Python :: 3

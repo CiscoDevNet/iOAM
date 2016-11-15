@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.opendaylight.controller</groupId>
+    <artifactId>karaf-parent</artifactId>
+    <version>1.8.0-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.opendaylight.sfc</groupId>
+  <artifactId>sfc-karaf</artifactId>
+  <version>0.4.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <prerequisites>
+    <maven>3.2</maven>
+  </prerequisites>
+
+  <properties>
+    <!-- The feature to install via featuresBoot in org.apache.karaf.features.cfg  -->
+    <karaf.localFeature>odl-sfc-provider</karaf.localFeature>
+  </properties>
+
+  <dependencies>
+    <!-- Basic Karaf dependencies -->
+    <dependency>
+      <!-- scope is compile so all features (there is only one) are installed
+            into startup.properties and the feature repo itself is not installed -->
+      <groupId>org.apache.karaf.features</groupId>
+      <artifactId>framework</artifactId>
+      <version>${karaf.version}</version>
+      <type>kar</type>
+    </dependency>
+
+    <!-- Project local feautures -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>features-sfc</artifactId>
+      <version>${project.version}</version>
+      <classifier>features</classifier>
+      <type>xml</type>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- DO NOT deploy the karaf artifact -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <scm>
+    <connection>scm:git:ssh://git.opendaylight.org:29418/sfc.git</connection>
+    <developerConnection>scm:git:ssh://git.opendaylight.org:29418/sfc.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>https://git.opendaylight.org/gerrit/gitweb?p=sfc.git;a=summary</url>
+  </scm>
+</project>

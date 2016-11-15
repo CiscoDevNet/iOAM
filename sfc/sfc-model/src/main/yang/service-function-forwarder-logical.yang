@@ -1,0 +1,125 @@
+module service-function-forwarder-logical {
+
+  yang-version 1;
+
+  namespace "urn:ericsson:params:xml:ns:yang:sfc-sff-logical";
+
+  prefix sfc-sff-logical;
+
+  import ietf-yang-types { prefix yang; revision-date 2013-07-15; }
+  import yang-ext { prefix ext; revision-date 2013-07-09; }
+  import sfc-common { prefix sfc-common; revision-date 2015-10-17; }
+  import service-function { prefix sfc-sf; revision-date 2014-07-01; }
+  import service-function-forwarder { prefix sfc-sff; revision-date 2014-07-01; }
+  import rendered-service-path { prefix rsp; revision-date 2014-07-01; }
+
+  organization "Ericsson, Inc.";
+  contact "Diego Granados <diego.jesus.granados.lopez@ericsson.com>";
+
+  description "This module contains a collection of YANG definitions used to
+        augment Service Function Forwarder operational information to
+        contain logical-SFF specific information. Also, minor changes
+        (augmentations) in the rendered service path and in the service
+        function elements, in order to use the new logical interface
+        locator";
+
+  revision 2016-06-20 {
+    description
+      "Augmentations in sf, sff-state, rendered service paths to include support for
+      logical SFFs (based on Genius project support)";
+  }
+
+  grouping logical-interface-locator {
+    description "Interface name of the VM on which the SF is running";
+    leaf interface-name {
+      type string;
+      description "Name of the interface";
+    }
+  }
+
+  //typedefs for dpn identifiers
+  typedef dpn-id-type  {
+    type uint64;
+    description "Data-plane node id";
+  }
+
+  grouping dpn-grouping {
+    description
+      "Data plane id: dpn-id";
+    leaf dpn-id {
+      type dpn-id-type;
+    }
+  }
+
+  grouping dpnid-rsps {
+    description "";
+    container dpn-rsps {
+      description "For each DPN id, the list contains all RSPs that
+                   are using the data plane node";
+      uses dpn-grouping;
+      list rsps {
+        description
+          "List of service paths using this data plane node";
+        key "name";
+        leaf name {
+          type sfc-common:sfp-name;
+          description "The name of the Service Path";
+        }
+      }
+    }
+  }
+
+  grouping sf-logical-sff-dictionary {
+    list sf-logical-sff-dictionary {
+      key "name";
+      leaf name {
+        type sfc-common:sf-name;
+        description
+          "The name of the service function";
+      }
+      container sff-sf-data-plane-locator {
+        description
+          "SFF and SF data plane locators to use when sending
+          packets from this SFF to the associated SF";
+        leaf sf-dpl-name {
+          type sfc-common:sf-data-plane-locator-name;
+          description
+            "The SF data plane locator to use when sending
+            packets to the associated service function";
+        }
+        uses dpn-grouping;
+      }
+    }
+    description
+      "A list of all Service Functions attached to this SFF.";
+  }
+
+  augment "/sfc-sf:service-functions/"
+        + "sfc-sf:service-function/"
+        + "sfc-sf:sf-data-plane-locator/"
+        + "sfc-sf:locator-type/" {
+    description "augment the Service Function to allow the use of logical interface
+                locators";
+    ext:augment-identifier "sf-logical-sff-augmentation";
+    case logical-interface {
+      uses logical-interface-locator;
+    }
+  }
+
+  augment "/sfc-sff:service-function-forwarders-state/"
+        + "sfc-sff:service-function-forwarder-state/" {
+    description "Augments the SFF state to hold logical SFF specific information";
+    ext:augment-identifier "sff-logical-sff-augmentation";
+    uses dpnid-rsps;
+    uses sf-logical-sff-dictionary;
+  }
+
+  augment "/rsp:rendered-service-paths/"
+      + "rsp:rendered-service-path/"
+      + "rsp:rendered-service-path-hop/" {
+    description "Augments the RSP hop information to allow to use dpn locators
+                instead of sff locators";
+    ext:augment-identifier "rsp-logical-sff-augmentation";
+    uses dpn-grouping;
+  }
+}
