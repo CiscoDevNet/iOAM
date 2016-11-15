@@ -132,7 +132,7 @@ In-band OAM is reflected in two applications within OpenDaylight:
 - *SFC*: In-band OAM "Proof of Transit" can be used as part of 
   OpenDaylight Service Function Chaining (SFC). The extensions to 
   ODL SFC enable ODL to serve POT control data (secrets etc.) required
-  for POT. Full support is expected as part of the OpenDaylight Carbon release.  
+  for POT. Full support is expected as part of the OpenDaylight Carbon release.
 
   - The following features are supported.
     - Utilizes Java-based libraries to generate iOAM parameters.
@@ -143,9 +143,17 @@ In-band OAM is reflected in two applications within OpenDaylight:
   - The following are the feature commits.
     -  https://git.opendaylight.org/gerrit/#/c/40669/
     -  https://git.opendaylight.org/gerrit/#/c/44449/
-- *Path-tracing*: Configuration application to enable and contron in-band OAM tracing.
+- *Path-tracing*: Configuration application to enable and control in-band OAM tracing.
   The tracing application will be included in a future version of
   OpenDaylight. For now, you'll soon find it here :-).
+  
+## In-band OAM Configuration Agent in Honeycomb
+
+Honeycomb is a java-based agent that runs on the same host as a VPP instance, and exposes yang models via netconf or restconf to allow the management of that VPP instance from off box controllers like OpenDaylight.  The iOAM module in the Honeycomb agent helps exposes NETCONF and RESTCONF interfaces to allow iOAM trace and SFC verification features supported in the VPP instance behind it.
+
+- *Path-tracing*: Configuration agent application to enable and control in-band OAM tracing.
+  - The following are the feature commits.
+    - https://gerrit.fd.io/r/#/c/3607/
 
 # Additional Resources
 
