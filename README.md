@@ -142,10 +142,11 @@ In-band OAM is reflected in two applications within OpenDaylight:
     - Feature capability is split into two modules to be installed: sfc-pot and sfc-pot-netconf-renderer.
   - The following are the feature commits.
     -  https://git.opendaylight.org/gerrit/#/c/40669/
-    -  https://git.opendaylight.org/gerrit/#/c/44449/
+    
 - *Path-tracing*: Configuration application to enable and control in-band OAM tracing.
   The tracing application will be included in a future version of
-  OpenDaylight. For now, you'll soon find it here :-).
+  OpenDaylight as a separate module.  For now, it is dependent on the SFC git (but not SFC functionality) and is available as below.
+    - https://github.com/CiscoDevNet/iOAM/tree/master/sfc
   
 ## In-band OAM Configuration Agent in Honeycomb
 
