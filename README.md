@@ -178,20 +178,27 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
 
 
  - [draft-brockners-inband-oam-requirements]
-              Brockners, F., Bhandari, S., and S. Dara, "Requirements
-              for in-band OAM", October 2016.
+              Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
+              Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
+              Lapukhov, P., Chang, R., "Requirements
+              for in-situ OAM", October 2016.
 
  - [draft-brockners-inband-oam-data]
-              Brockners, F. and S. Bhandari, "Data Formats for in-band
+              Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
+              Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
+              Lapukhov, P., Chang, R., "Data Formats for in-situ
               OAM", October 2016.
 
  - [draft-brockners-inband-oam-transport]
-              Brockners, F. and S. Bhandari, "Encapsulations for in-band
+              Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
+              Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
+              Lapukhov, P., Chang, R., "Encapsulations for in-band
               OAM", October 2016.
 
  - [draft-brockners-proof-of-transit]
-              Brockners, F., Bhandari, S., and S. Dara, "Proof of
-              transit", October 2016.
+              Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
+              Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
+              "Proof of transit", October 2016.
 
  - [SPUD]
               Hildebrand, J. and B. Trammell, "Substrate Protocol for
