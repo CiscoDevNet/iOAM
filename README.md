@@ -65,24 +65,24 @@ data-formats and transport encapsulations can be found in the
 following IETF internet drafts:
 
 - [Requirements for In-band
-  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-01)
+  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-02)
   discusses the motivation and requirements for including
   specific operational and telemetry information into data packets
   while the data packet traverses a path between two points in the
   network.
 
 - [Data Formats for In-band
-  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-data-01)
+  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-data-02)
   discusses the data types and data formats for in-band OAM data
   records.
 
 - [Encapsulations for In-band OAM
-  Data](https://tools.ietf.org/html/draft-brockners-inband-oam-transport-01) 
+  Data](https://tools.ietf.org/html/draft-brockners-inband-oam-transport-02) 
   outlines how in-band OAM data records can be transported in protocols such as
   NSH, Segment Routing, VXLAN-GPE, native IPv6 (via extension header), and IPv4.
 
 - [Proof of
-  Transit](https://tools.ietf.org/html/draft-brockners-proof-of-transit-01)
+  Transit](https://tools.ietf.org/html/draft-brockners-proof-of-transit-02)
   defines mechanisms to securely prove that traffic transited the defined path.
   Several technologies such as traffic engineering, service function
   chaining, or policy based routing, are used to steer traffic through
@@ -179,19 +179,19 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
 
  - [draft-brockners-inband-oam-requirements]
               Brockners, F., Bhandari, S., and S. Dara, "Requirements
-              for in-band OAM", July 2016.
+              for in-band OAM", October 2016.
 
  - [draft-brockners-inband-oam-data]
               Brockners, F. and S. Bhandari, "Data Formats for in-band
-              OAM", July 2016.
+              OAM", October 2016.
 
  - [draft-brockners-inband-oam-transport]
               Brockners, F. and S. Bhandari, "Encapsulations for in-band
-              OAM", July 2016.
+              OAM", October 2016.
 
  - [draft-brockners-proof-of-transit]
               Brockners, F., Bhandari, S., and S. Dara, "Proof of
-              transit", July 2016.
+              transit", October 2016.
 
  - [SPUD]
               Hildebrand, J. and B. Trammell, "Substrate Protocol for
@@ -204,7 +204,7 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
  - [I-D.lapukhov-dataplane-probe]
               Lapukhov, P. and Chang R., "Data-plane
               probe for in-band telemetry collection", draft-lapukhov-
-              dataplane-probe-01 (work in progress), June 2016.
+              dataplane-probe-02 (work in progress), June 2016.
 
 # Team:
 
@@ -226,17 +226,17 @@ Former team members include:
 # Current Status
 In development
 
-[draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-01
-[draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-01
-[draft-brockners-inband-oam-data]: https://tools.ietf.org/html/draft-brockners-inband-oam-data-01
-[draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-01
+[draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-02
+[draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-02
+[draft-brockners-inband-oam-data]: https://tools.ietf.org/html/draft-brockners-inband-oam-data-02
+[draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-02
 [p4]: http://p4.org/p4/inband-network-telemetry/
 [SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
 [fd.io]: http://fd.io
 [RFC0791]: https://tools.ietf.org/html/rfc0791.html
 [segment-routing]: https://tools.ietf.org/html/draft-ietf-spring-segment-routing-07
-[segment-routing-header]: https://tools.ietf.org/html/draft-ietf-6man-segment-routing-header-01
-[lisp-sr]: https://tools.ietf.org/html/draft-brockners-lisp-sr-01
+[segment-routing-header]: https://tools.ietf.org/html/draft-ietf-6man-segment-routing-header-02
+[lisp-sr]: https://tools.ietf.org/html/draft-brockners-lisp-sr-02
 [VPP ioam configuration]: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands
-[I-D.lapukhov-dataplane-probe]: https://tools.ietf.org/html/draft-lapukhov-dataplane-probe-01
+[I-D.lapukhov-dataplane-probe]: https://tools.ietf.org/html/draft-lapukhov-dataplane-probe-02
 [RFC7276]: https://tools.ietf.org/html/rfc7276
