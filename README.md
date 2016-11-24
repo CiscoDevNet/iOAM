@@ -192,7 +192,7 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
  - [draft-brockners-inband-oam-transport]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
-              Lapukhov, P., Chang, R., "Encapsulations for in-band
+              Lapukhov, P., Chang, R., "Encapsulations for in-situ
               OAM", October 2016.
 
  - [draft-brockners-proof-of-transit]
