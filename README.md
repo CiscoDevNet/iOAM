@@ -142,6 +142,8 @@ In-band OAM is reflected in two applications within OpenDaylight:
     - Feature capability is split into two modules to be installed: sfc-pot and sfc-pot-netconf-renderer.
   - The following are the feature commits.
     -  https://git.opendaylight.org/gerrit/#/c/40669/
+    -  https://git.opendaylight.org/gerrit/#/c/48766/
+    -  https://git.opendaylight.org/gerrit/#/c/49636/
     
 - *Path-tracing*: Configuration application to enable and control in-band OAM tracing.
   The tracing application will be included in a future version of
@@ -155,6 +157,10 @@ Honeycomb is a java-based agent that runs on the same host as a VPP instance, an
 - *Path-tracing*: Configuration agent application to enable and control in-band OAM tracing.
   - The following are the feature commits.
     - https://gerrit.fd.io/r/#/c/3607/
+    - https://gerrit.fd.io/r/#/c/4215/
+- *Proof-of-Transit*: Configuration agent application to enable and control in-band OAM Proof of Transit.
+  - The following are the feature commits.
+    - https://gerrit.fd.io/r/#/c/4268
 
 # Additional Resources
 
