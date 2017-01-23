@@ -1,7 +1,0 @@
-{
-  "input": {
-      "name": "sfc-path-mpls",
-      "parent-service-function-path": "sfc-path-mpls",
-      "symmetric": true
-  }
-}

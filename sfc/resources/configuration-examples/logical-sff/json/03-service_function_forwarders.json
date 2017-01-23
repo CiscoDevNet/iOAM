@@ -1,9 +1,0 @@
-{
-    "service-function-forwarders": {
-        "service-function-forwarder": [
-           {
-                "name": "sfflogical1"
-            }
-        ]
-    }
-}

@@ -1,9 +1,0 @@
-# include non-package data
-graft nfq
-graft test
-include start_agent.sh tox.ini README.rst
-
-# exclude unnecessary stuff
-prune unused
-global-exclude *.pyc
-recursive-exclude * __pycache__
