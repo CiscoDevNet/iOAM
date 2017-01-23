@@ -1,0 +1,30 @@
+{
+    "service-functions": {
+        "service-function": [
+            {
+                "name": "firewall-1",
+                "type": "firewall",
+                "sf-data-plane-locator": [
+                    {
+                        "name": "firewall-dpl",
+                        "interface-name": "eccb57ae-5a2e-467f-823e-45d7bb2a6a9a",
+                        "transport": "service-locator:eth-nsh",
+                        "service-function-forwarder": "sfflogical1"
+                    }
+                ]
+            },
+                        {
+                "name": "dpi-1",
+                "type": "dpi",
+                "sf-data-plane-locator": [
+                    {
+                        "name": "dpi-dpl",
+                        "interface-name": "df15ac52-e8ef-4e9a-8340-ae0738aba0c0",
+                        "transport": "service-locator:eth-nsh",
+                        "service-function-forwarder": "sfflogical1"
+                    }
+                ]
+            }
+        ]
+    }
+}

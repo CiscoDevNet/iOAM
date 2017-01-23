@@ -1,0 +1,156 @@
+module rendered-ioam-path {
+
+  namespace "urn:cisco:params:xml:ns:yang:ioam-path";
+
+  prefix ioam-path;
+
+  import network-topology { prefix topo; }
+
+  organization "Cisco Systems, Inc.";
+
+  description
+    "This module contains a collection of YANG definitions to
+     manage Rendered iOAM Paths.";
+
+  revision 2015-11-29 {
+    description
+      "Initial version";
+  }
+
+  //Rendered iOAM Path
+
+  container rendered-ioam-paths {
+    config false;
+    description
+      "A container that holds the list of all Rendered iOAM Paths through the network.";
+
+    list rendered-ioam-path {
+      description
+        "A list that holds operational data for all RIPs in the
+         domain";
+      key "name";
+      leaf name {
+        type string;
+        description
+          "The name of this rendered ioam path.";
+      }
+
+      leaf nb-sys-profile-name {
+        type string;
+        description
+          "iOAM service profile name associated with this RIP";
+      }
+
+      list sb-nodes-border {
+        key "index";
+        ordered-by system;
+        description
+          "List of border nodes that can do the iOAM encap/decap";
+
+        leaf index {
+          type uint32;
+          description
+            "Unique identifier for each border node";
+        }
+
+        leaf node-id {
+          type uint32;
+          description
+            "Node identifier in the system";
+        }
+
+        /*** from network-topology, tie up to netconf node id */
+        leaf netconf-node {
+          type topo:node-ref;
+        }
+      }
+
+      list sb-nodes-internal {
+        key "index";
+        ordered-by system;
+        description
+          "List of internal nodes that can do the iOAM encap updates ";
+
+        leaf index {
+          type uint32;
+          description
+            "Unique identifier for each internal node";
+        }
+
+        leaf node-id {
+          type uint32;
+          description
+            "Node identifier in the system";
+        }
+
+        /*** from network-topology, tie up to netconf node id */
+        leaf netconf-node {
+          type topo:node-ref;
+        }
+      }
+
+      leaf sb-trace-type {
+        type uint8;
+        description
+          "iOAM trace type to identify what information needs to be added.";
+      }
+
+      leaf sb-trace-ppc {
+        type boolean;
+        description
+          "iOAM trace path packet counter option enabled or not";
+      }
+
+      leaf sb-trace-pow {
+        type boolean;
+        description
+          "iOAM proof of work option enabled or not";
+      }
+    }
+  }
+
+  rpc create-ioam-path {
+    description
+      "Create an iOAM Path";
+    input {
+      leaf name {
+        type string;
+        description
+          "The name of this rendered iOAM path.";
+      }
+
+      leaf nb-sys-profile-name {
+        type string;
+        description
+          "iOAM service profile name for which this RIP was instantiated";
+      }
+    }
+
+    output {
+      leaf name {
+        type string;
+        description
+          "The name of the rendered iOAM path thus created by the system. The path identifies the list of network nodes that are subjected to the specified iOAM service profile passed in.";
+      }
+    }
+  }
+
+  rpc delete-ioam-path {
+    description
+      "Delete an iOAM Path";
+    input {
+      leaf name {
+        type string;
+        description
+          "The name of the rendered iOAM path (obtained from create) to be deleted.";
+      }
+    }
+    output {
+      leaf result {
+        type boolean;
+        description
+          "True if the rendered iOAM path was deleted, otherwise false";
+      }
+    }
+  }
+}

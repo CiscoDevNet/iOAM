@@ -1,0 +1,17 @@
+{
+  "service-function-chains": {
+    "service-function-chain": [
+      {
+        "name": "sfc-chain-1sf1sff",
+        "sfc-service-function": [
+          {
+            "name": "hdr-enrich-abstract1",
+            "type": "http-header-enrichment"
+          }
+        ]
+      }
+ 
+    ]
+  }
+}
+ 
