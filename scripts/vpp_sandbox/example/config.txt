@@ -1,0 +1,9 @@
+client_router h_client1 h_router1
+client_many h_client2 h_manycast1
+router_many h_router8 h_manycast2
+router_server1 h_router2 h_server11
+router_server2 h_router3 h_server21
+router_server3 h_router4 h_server31
+router_server11 h_router5 h_server12
+router_server21 h_router6 h_server22
+router_server31 h_router7 h_server32
