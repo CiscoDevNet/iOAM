@@ -1,4 +1,4 @@
-To use VPP with lxc/docker, steps to be followed is would be:
+# Use VPP with lxc/docker
 
 1. Install lxc on ubuntu:
     
