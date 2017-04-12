@@ -5,7 +5,7 @@
 
     sudo apt-get install lxc lxctl lxc-templates
 
-2. Copy the templete file lxc-vpp-ext to /usr/share/lxc/templetes
+2. Copy the template file lxc-vpp-ext to /usr/share/lxc/templates
 3. To start creating multiple containers and connect them, use the script launch_lxc.sh. 
 	
         Usage: launch_lxc.sh -n <Name of container> -t <Templete Name> -l <Number of VEth Links> [-f <Log File Path>] [-d for delete operation ]
