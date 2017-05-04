@@ -12,9 +12,9 @@
 
 	This script does:
 
-		a. Start a lxc container with the name suggested in the command.
+		a. Start a lxc container with the name suggested in the command in background.
 			
-			sudo lxc-start -n <container_name>
+			sudo lxc-start -n <container_name> -d
 
 		b. Create Veth pair with one end on Ubuntu host and other end on lxc conatiner namespace.
 

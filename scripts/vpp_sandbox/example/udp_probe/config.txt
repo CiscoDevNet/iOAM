@@ -1,0 +1,16 @@
+rack1_fabric1 h_rack11 h_fabric13
+rack1_fabric2 h_rack12 h_fabric23
+rack2_fabric1 h_rack21 h_fabric14
+rack2_fabric2 h_rack22 h_fabric24
+rack3_fabric3 h_rack31 h_fabric33
+rack3_fabric4 h_rack32 h_fabric43
+rack4_fabric3 h_rack41 h_fabric34
+rack4_fabric4 h_rack42 h_fabric44
+fabric1_spine1 h_fabric11 h_spine11
+fabric1_spine2 h_fabric12 h_spine21
+fabric2_spine1 h_fabric21 h_spine13
+fabric2_spine2 h_fabric22 h_spine22
+fabric3_spine1 h_fabric31 h_spine12
+fabric3_spine2 h_fabric32 h_spine23
+fabric4_spine1 h_fabric41 h_spine14
+fabric4_spine2 h_fabric42 h_spine24

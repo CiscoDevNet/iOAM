@@ -75,7 +75,7 @@ fi
 
 #Start the container
 log_print "Starting $NAME Container"
-sudo lxc-start -n $NAME >> $LOG_FILE
+sudo lxc-start -n $NAME -d >> $LOG_FILE
 if [ $? -ne 0 ]; then
     log_print "\tError with $?"
     exit $?
