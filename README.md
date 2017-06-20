@@ -65,19 +65,19 @@ data-formats and transport encapsulations can be found in the
 following IETF internet drafts:
 
 - [Requirements for In-band
-  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-02)
+  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-03)
   discusses the motivation and requirements for including
   specific operational and telemetry information into data packets
   while the data packet traverses a path between two points in the
   network.
 
 - [Data Formats for In-band
-  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-data-02)
+  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-data-04)
   discusses the data types and data formats for in-band OAM data
   records.
 
 - [Encapsulations for In-band OAM
-  Data](https://tools.ietf.org/html/draft-brockners-inband-oam-transport-02) 
+  Data](https://tools.ietf.org/html/draft-brockners-inband-oam-transport-0)3 
   outlines how in-band OAM data records can be transported in protocols such as
   NSH, Segment Routing, VXLAN-GPE, native IPv6 (via extension header), and IPv4.
 
