@@ -34,7 +34,7 @@ The picture shows a set of service instances (S1, S2, ..., S12) (a service
 instance would equate a POD in Kubernetes) hosted on a set of servers.
 All service instances are assumed to deliver the same service. 
 The service is reachable by an Anycast address which would be hosted on
-one or multiple M-Anycast servers (the picture only shows one M-Anycast
+one or multiple M-Anycast nodes (the picture only shows one M-Anycast
 server). In addition, all Servers have the Anycast address of the service
 configured as an alias/secondary address, along with the main/native
 address.
@@ -43,21 +43,21 @@ For service instance selection the following steps are carried out:
 
 1. The client desires to establish a TCP session to the service
    which is desribed by an Anycast address. The client sends out a
-   TCP SYN. The TCP SYN is received by the M-Anycast server and
+   TCP SYN. The TCP SYN is received by the M-Anycast node and
    replicated to a subset of the available service instances. 
    The TCP SYNs are steered towards the chosen set of service instances
-   using Segment Routing Policy. In addition, the M-Anycast server
+   using Segment Routing Policy. In addition, the M-Anycast node 
    adds IOAM meta-data to the TCP SYN so that packet level telemetry
    information such as network delay, TCP host stack delay, server or
    service load information, or application
    response time can be measured and propagated back to the M-Anycast
-   server.
-2. The servers respond with a TCP ACK back to the M-Anycast server
-   (the responses are also steered towards the M-Anycast server
-   using segment routing policy). The M-Anycast server uses the IOAM
+   node.
+2. The servers respond with a TCP ACK back to the M-Anycast node 
+   (the responses are also steered towards the M-Anycast node 
+   using segment routing policy). The M-Anycast node uses the IOAM
    meta-data contained in the TCP SYN-ACK to choose the "optimal"
    SYN-ACK received. Selection can be based on criteria such as
-   shortest server to M-Anycast server delay, shortest application
+   shortest server to M-Anycast node delay, shortest application
    response time within the server, load-information of the server, etc.
    The server sends the chosen TCP SYN-ACK back to the client.
    All other SYN-ACKs will be dropped and a RST is sent to those
@@ -65,17 +65,17 @@ For service instance selection the following steps are carried out:
 3. The SYN-ACK that the client receives contains segment routing policy
    which reveals the source of the SYN-ACK. In our case here, service 4
    was chosen. The client will send the TCP ACK directly towards service 4,
-   now omitting the de-tour via the M-Anycast server. The client does so
+   now omitting the de-tour via the M-Anycast node. The client does so
    by using segment routing policy with service 4 as the destination SID.
 4. Once the TCP 3-way handshake is completed, a TCP session is established
    between the service 4 and the client. Data traffic can now flow directly
    between client and service 4. 
 
-Note that the M-Anycast server is only in the packet path for the initial
-SYN - SYN-ACK exchange. In additon, the M-Anycast server also only needs to
+Note that the M-Anycast node is only in the packet path for the initial
+SYN - SYN-ACK exchange. In additon, the M-Anycast node also only needs to
 keep session state for the duration of the SYN - SYN-ACK exchange, rather
 than for the duration of the entire TCP session. This makes the M-Anycast
-concept very scalable. Also note, that multiple M-Anycast servers can
+concept very scalable. Also note, that multiple M-Anycast nodes can
 operate in parallel, in case the M-Anycast service needs to be scaled.
 
 # M-Anycast - Step by Step 
@@ -96,9 +96,9 @@ operate in parallel, in case the M-Anycast service needs to be scaled.
 
 ## Example network views 
 
-![Alt text](./Demo-M-AnyCast-SYN.png?raw=true "M-Anycast server: SYN processing")
+![Alt text](./Demo-M-AnyCast-SYN.png?raw=true "M-Anycast node: SYN processing")
 
-![Alt text](./Demo-M-AnyCast-SYN-ACK.png?raw=true "M-Anycast server: SYN-ACK processing")
+![Alt text](./Demo-M-AnyCast-SYN-ACK.png?raw=true "M-Anycast node: SYN-ACK processing")
 
 ![Alt text](./Demo-Server1-SYN.png?raw=true "Server: SYN processing")
 
