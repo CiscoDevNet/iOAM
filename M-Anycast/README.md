@@ -82,28 +82,103 @@ operate in parallel, in case the M-Anycast service needs to be scaled.
 
 ## Packet flow walk through
 
+The packet flow walk through assumes a setup with 3 servers hosting the same service instance. We use symbolic addresses here:
+
+* Client address: C::1
+* Anycast address of the service: A::1 (hosted on M-Anycast node). In addition, all servers have the service address configured as an alias address
+* Server1 address: S::1
+* Server2 address: S::2
+* Server3 address: S::3
+
+The SRv6 and IOAM functionality is offered through the VPP implementation (see Code section for details). 
+
 ### SYN
 ![Alt text](./SYN.png?raw=true "SYN")
+
+1. Client sends a TCP SYN to the anycast address of the service (A::1).
+   The TCP SYN packet is a regular packet and does not contain any
+   segment routing policy.
+2. The M-Anycast node receives the TCP SYN packet, adds an IOAM header
+   and sends a copy of the TCP SYN to each of the three servers.
+   It does so by adding segment routing policy to the packet, i.e.
+   the address of each server is used as the SID in the segment routing
+   policy. 
+3. Each TCP SYN is traversing the network towards the servers hosting
+   an instance of the service. Note that the packets contain 2 IPv6
+   extension headers at this point: The SRv6 routing extension header as
+   well as the IOAM Hop-by-Hop extension header.
+4. The TCP SYN is received by the VPP on each server. The SR-header (SRH)
+   and the IOAM header are stripped off. The VPP caches the IOAM header
+   information (such as timestamp information). 
+5. VPP passes the "cleaned-up" TCP SYN packet to the host stack of the
+   server. At this point, the TCP SYN packet is a vanilla packet without
+   any IOAM or SRv6 information in it.
 
 ### SYN-ACK
 ![Alt text](./SYN-ACK.png?raw=true "SYN-ACK")
 
+1. Each server host stack responds with a TCP SYN-ACK. VPP intercepts 
+   the SYN-ACK and adds a SRH as well as an IOAM header to it.
+2.  The IOAM header contains the information cached earlier. The SRH
+   header includes the address of the M-Anycast node as the SID for the
+   next SR hop. This way the SYN-ACKs are all steered back to the
+   M-Anycast node.
+3. The M-Anycast node receives the 3 SYN-ACKs from the 3 different servers.
+   Based on the IOAM information, it selects the most appropriate server.
+   This selection can be based on a variety of metrics - and could also
+   include historic data from earlier SYN - SYN-ACK handshakes. In the
+   demo referred to below, we use the 1-way delay between server and
+   M-Anycast node as the metric. I.e. the server which shows the shortest
+   delay between server and M-Anycast node is chosen. This example
+   could represent a typical streaming video service, where the customer
+   is interested in the lowest delay from server to client, which is 
+   important for real-time media, such as sports events. 
+   In our case we choose server 2 as the optimal server. The M-Anycast
+   node does not strip the SRH, but updates it using C::1 as the next hop SID.
+   This way the SYN-ACK will be further steered towards the Client.
+4. The SYN-ACK is propagated towards the client and received by VPP on the
+   client node.
+5. VPP removes the SRH and creates a dynamic SR policy which steers traffic
+   with destination address anycast A::1 to Server 2 (S::2). This means
+   that any follow-up traffic (including the ACK) will be sent directly
+   to server 2 using segment routing policy.
+6. The "cleaned-up" TCP SYN-ACK is handed to the host stack. The client's
+   host stack is unaware of the SR and IOAM gymnastics used.
+
 ### ACK
 ![Alt text](./ACK.png?raw=true "ACK")
+
+1. The client host stack responds with a TCP ACK to the receipt of the
+   TCP SYN-ACK. The ACK will have the source address of the client (C::1)
+   and the destination address of the anycast service (A::1).
+2. VPP intercepts the packet and adds an SRH to it. The segment routing
+   policy of the SRH contains S::2 as the next hop SID. That way
+   the ACK is directly sent to server 2.
+3. The TCP ACK is steered directly to server 2 using SID S::2. 
 
 ### Subsequent traffic
 ![Alt text](./subsequent-traffic.png?raw=true "Subsequent traffic")
 
+Subsequent traffic flows directly from client to server and vice versa.
+Traffic from server to client is sent directly (without the use of SR
+policy) (marked with (2) in the picture), whereas traffic from client to
+server leverages the above established segment routing policy to steer
+traffic directly to server 2.
+
 ## Example network views 
 
+### Example views of the M-Anycast node
 ![Alt text](./Demo-M-AnyCast-SYN.png?raw=true "M-Anycast node: SYN processing")
 
 ![Alt text](./Demo-M-AnyCast-SYN-ACK.png?raw=true "M-Anycast node: SYN-ACK processing")
+
+### Example views of the Server
 
 ![Alt text](./Demo-Server1-SYN.png?raw=true "Server: SYN processing")
 
 ![Alt text](./Demo-Server1-SYN-ACK.png?raw=true "Server: SYN-ACK processing")
 
+### Example views of the Client
 ![Alt text](./Demo-Client.png?raw=true "Client")
 
 # Demos
@@ -111,7 +186,9 @@ operate in parallel, in case the M-Anycast service needs to be scaled.
 M-Anycast has been demostrated at IETF Bits-n-Bites in IETF 97 (Seoul) and IETF
 98 (Chicago). Overview videos:
 
- - IETF 98 BnB - M-Anycast Demo (Big Buck Bunny): https://www.youtube.com/watch?v=-jqww8ydWQk
+ - IETF 98 BnB - M-Anycast Demo (Big Buck Bunny): https://www.youtube.com/watch?v=-jqww8ydWQk. This demo combines IOAM, SRv6 and 6CN/MPEG-DASH (Glass2Glass)
+   technologies for seamless media delivery. It was jointly delivered
+   by Cisco, Comcast, and Drexel University.
  - IETF 97 BnB - M-Anycast Demo (concept): https://www.youtube.com/watch?v=zPhrGWilLSg
 
 # Code
