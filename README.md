@@ -90,6 +90,23 @@ following IETF internet drafts:
   document allow to securely verify whether all packets traversed all
   those nodes of a given path that they are supposed to visit.
 
+A wide variety of use-cases can leverage IOAM:
+
+* Service/Quality Assurance – Fabric OAM
+  * Prove traffic SLAs, as opposed to probe-traffic SLAs; Overlay/Underlay
+  * Service/Path Verification (Proof of Transit) – prove that
+    traffic follows a pre-defined path
+* Micro-Service/NFV deployments
+  * Smart service selection based on network criteria - "M-Anycast"
+    (intelligent micro-service selection and load-balancing):
+    https://github.com/CiscoDevNet/iOAM/tree/master/M-Anycast
+* Operations Support – Fabric Visibility
+  * Network Fault Detection and Fault Isolation through
+    efficient network probing
+  * Path Tracing –  debug ECMP, brown-outs, network delays
+  * Derive Traffic Matrix
+  * Custom/Service Level Telemetry 
+
 # Code
 
 ## Dataplane implementation in FD.io/VPP

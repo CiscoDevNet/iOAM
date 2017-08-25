@@ -10,7 +10,37 @@ packet flow.
 
 # Overview
 
-# Packet flow walk through
+![Alt text](./use-case.png?raw=true "Micro-service load-balancing")
+
+![Alt text](./m-anycast-overview.png?raw=true "M-Anycast Overview")
+
+# M-Anycast - Step by Step 
+
+## Packet flow walk through
+
+### SYN
+![Alt text](./SYN.png?raw=true "SYN")
+
+### SYN-ACK
+![Alt text](./SYN-ACK.png?raw=true "SYN-ACK")
+
+### ACK
+![Alt text](./ACK.png?raw=true "ACK")
+
+### Subsequent traffic
+![Alt text](./subsequent-traffic.png?raw=true "Subsequent traffic")
+
+## Example network views 
+
+![Alt text](./Demo-M-AnyCast-SYN.png?raw=true "M-Anycast server: SYN processing")
+
+![Alt text](./Demo-M-AnyCast-SYN-ACK.png?raw=true "M-Anycast server: SYN-ACK processing")
+
+![Alt text](./Demo-Server1-SYN.png?raw=true "Server: SYN processing")
+
+![Alt text](./Demo-Server1-SYN-ACK.png?raw=true "Server: SYN-ACK processing")
+
+![Alt text](./Demo-Client.png?raw=true "Client")
 
 # Demos
 
@@ -25,6 +55,5 @@ M-Anycast has been demostrated at IETF Bits-n-Bites in IETF 97 (Seoul) and IETF
 M-Anycast has been implemented in [FD.io/VPP]. The key patch is found here:
 https://gerrit.fd.io/r/#/c/4746/
 
-# References
 
 [FD.io/VPP]: https://wiki.fd.io/view/VPP
