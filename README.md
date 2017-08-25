@@ -72,17 +72,17 @@ following IETF internet drafts:
   network.
 
 - [Data Formats for In-band
-  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-data-04)
+  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-data-07)
   discusses the data types and data formats for in-band OAM data
   records.
 
 - [Encapsulations for In-band OAM
-  Data](https://tools.ietf.org/html/draft-brockners-inband-oam-transport-0)3 
+  Data](https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05) 
   outlines how in-band OAM data records can be transported in protocols such as
   NSH, Segment Routing, VXLAN-GPE, native IPv6 (via extension header), and IPv4.
 
 - [Proof of
-  Transit](https://tools.ietf.org/html/draft-brockners-proof-of-transit-02)
+  Transit](https://tools.ietf.org/html/draft-brockners-proof-of-transit-03)
   defines mechanisms to securely prove that traffic transited the defined path.
   Several technologies such as traffic engineering, service function
   chaining, or policy based routing, are used to steer traffic through
@@ -239,10 +239,10 @@ Former team members include:
 # Current Status
 In development
 
-[draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-02
-[draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-02
-[draft-brockners-inband-oam-data]: https://tools.ietf.org/html/draft-brockners-inband-oam-data-02
-[draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-02
+[draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-03
+[draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-03
+[draft-brockners-inband-oam-data]: https://tools.ietf.org/html/draft-brockners-inband-oam-data-07
+[draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05
 [p4]: http://p4.org/p4/inband-network-telemetry/
 [SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
 [fd.io]: http://fd.io
