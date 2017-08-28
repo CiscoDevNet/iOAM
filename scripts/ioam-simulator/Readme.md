@@ -5,7 +5,8 @@ number of leaf and spine nodes.
 It will then simulate flows through this network and dump ioam trace data.
 
 ``
- python network.py --help
+
+python network.py --help
 usage: network.py [-h] [-l LEAF] [-s SPINE] [-f FLOWS] [-n NOOFSECONDS]
 
 optional arguments:
