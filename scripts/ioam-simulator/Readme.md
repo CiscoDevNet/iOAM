@@ -18,6 +18,7 @@ optional arguments:
   -n NOOFSECONDS, --noofseconds NOOFSECONDS
                         number of seconds of data
 ``
+
 ## Pre-intall
 sudo pip install python-dateutil
 sudo pip install networkx
@@ -25,6 +26,7 @@ sudo pip install networkx
 ## Example
 To generate a topology of 2 leaf nodes and a spine node and create 2 random flows,
 with 5 seconds of ioam trace data collected for the flows do this:
+
 ``
 python network.py -l 2 -s 1 -f 2 -n 5
 ``
