@@ -4,6 +4,7 @@ from random import randint
 import datetime
 from argparse import ArgumentParser
 from dateutil.tz import tzlocal
+import math
 
 '''
 To simulate packet loss & delay
@@ -14,8 +15,8 @@ link_speed_gbps = 1  # link speed in Gbps
 queue_depth = 100
 '''
 
-spine_node_processing = 40 # MPPS
-leaf_node_processing = 10 # MPPS
+spine_node_processing = 12500*1e-6 #  MPPS
+leaf_node_processing = 2500*1e-6 #  MPPS
 link_speed_gbps = 1 #link speed in Gbps
 queue_depth = 100
 local_tz = tzlocal()
@@ -27,7 +28,6 @@ class flow:
         self.sourceNode = sourceNode
         self.destinationNode = destinationNode
         self.mynet = mynet
-        self.ioamSeqNo = 1
         self.flow_id = flow.flow_seq_no
         flow.flow_seq_no += 1
         self.start_time = datetime.datetime.utcnow()
@@ -37,6 +37,7 @@ class flow:
         list = mynet.findPath(sourceNode,destinationNode)
         ecmp_path_index = self.flow_id % len(list)
         self.path = list[ecmp_path_index]
+        self.ioamSeqNo = int(self.start_time.strftime('%Y%m%d'))
 
 
     def set5Tuple(self):
@@ -59,6 +60,9 @@ class flow:
         for node_p in self.path:
             self.mynet.nodes[node_p].update_cpps(self.pps/1e6)
 
+    def updateFlowPPS(self, newpps):
+        self.pps = newpps
+
     def printFlowRecords(self, start_time, end_time):
         global local_tz
         if start_time < self.start_time:
@@ -75,7 +79,8 @@ class flow:
                 drop += drop_at_this_node
                 number_of_packets -= drop_at_this_node
         for i in range(0,int(drop)):
-            remove_index = randint(0, (end_ioam_seqno-start_ioam_seqno) - 1)
+            x = randint(0, (end_ioam_seqno-start_ioam_seqno) - 1)
+            remove_index = int(math.sin((1 / x)(1 / (1 - x))))
             while (seq_no_list[remove_index] == 0):
                 remove_index = (remove_index + 1) % (end_ioam_seqno-start_ioam_seqno)
             seq_no_list[remove_index] = 0
@@ -240,11 +245,14 @@ if __name__ == '__main__':
     number_of_seconds_of_data = noofseconds
     data_start = flowList[0].start_time #earliest flows start time
     window_start = data_start
+    delay_window = randint(0,number_of_seconds_of_data)
+    higher_rate_flow = randint(0,len(flowList)-1)
+    drop_window = randint(0,number_of_seconds_of_data)
+    drop_rate_flow = randint(0,len(flowList)-1)
     for i in range(0,number_of_seconds_of_data):
         window_end = window_start + datetime.timedelta(seconds=1)
         #print("Starting data creation for flows in the window "+
              # window_start.strftime("%c") + " to "+window_end.strftime("%c"))
-
         for flow in flowList:
             flow.updateNodeResource(window_start, window_end)
         for flow in flowList:
@@ -252,6 +260,19 @@ if __name__ == '__main__':
         window_start = window_end
         for node in my_network.nodes:
             my_network.nodes[node].reset_cpps()
+        #simulate delay in the next window
+        if i == delay_window:
+            flowList[higher_rate_flow].updateFlowPPS(150)
+        if i == drop_window:
+            flowList[drop_rate_flow].updateFlowPPS(300)
+        if i == (delay_window + 1):
+            flowList[higher_rate_flow].updateFlowPPS(100)
+        if i == (drop_window + 1):
+            flowList[drop_rate_flow].updateFlowPPS(100)
+
+
+
+
 
 
 
