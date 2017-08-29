@@ -19,9 +19,14 @@ optional arguments:
                         number of seconds of data
 ```
 
-## Pre-intall
+## Pre-install
+
+```
 sudo pip install python-dateutil
 sudo pip install networkx
+sudo pip install ipaddr
+```
+
 
 ## Example
 To generate a topology of 2 leaf nodes and a spine node and create 2 random flows,
