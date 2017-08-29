@@ -79,8 +79,9 @@ class flow:
                 drop += drop_at_this_node
                 number_of_packets -= drop_at_this_node
         for i in range(0,int(drop)):
-            x = randint(0, (end_ioam_seqno-start_ioam_seqno) - 1)
-            remove_index = int(math.sin((1 / x)(1 / (1 - x))))
+            remove_index = x = randint(0, (end_ioam_seqno-start_ioam_seqno) - 1)
+            if (x > 1):
+            	remove_index = int(math.sin((1 / x) * (1 / (1 - x))))
             while (seq_no_list[remove_index] == 0):
                 remove_index = (remove_index + 1) % (end_ioam_seqno-start_ioam_seqno)
             seq_no_list[remove_index] = 0
