@@ -45,7 +45,7 @@ class flow:
         self.sourceport = randint(1000,50000)
         self.destport = randint(1000,50000)
         self.record_hdr = str(self.sourceip6)+"-"+str(self.sourceport)
-        self.record_hdr += "_to_"
+        self.record_hdr += " to "
         self.record_hdr += str(self.destip6)+"-"+str(self.destport)
         self.record_hdr += " "
         #print("flow id = " + str(self.flow_id) + self.record_hdr + self.start_time.strftime("%c"))
@@ -85,8 +85,8 @@ class flow:
             record = self.record_hdr
             this_flow_packet_time_ms = self.epoch_ms + (1000 / self.pps) * seq_no_list[i]
             dt = datetime.datetime.fromtimestamp(this_flow_packet_time_ms / 1e3, local_tz)
-            record += dt.strftime('%Y%m%d %X')
-            record += " "
+#            record += dt.strftime('%Y%m%d %X')
+#            record += " "
             record += str(seq_no_list[i])
             str_path = " "
             first = True
@@ -95,7 +95,7 @@ class flow:
             for node_p in self.path:
                 timestamp += (self.mynet.nodes[node_p].packet_processing_time_ms) #node processing time
                 if not first:
-                    str_path += "->"
+                    str_path += " -> "
                     # assuming 64B packet size - link delay in ms = 64 * 1e3/(link_speed_in_Gbps/8 * 1e9)
                     timestamp += 8 / (self.mynet.gr.edge[previous_node][node_p]['speed_gbps'] * 1e6) #link processing time
                 str_path += str(self.mynet.nodes[node_p].node_id) + ", "
