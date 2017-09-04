@@ -1,5 +1,6 @@
 import networkx as nx
 import ipaddr
+import random
 from random import randint
 import datetime
 from argparse import ArgumentParser
@@ -98,7 +99,11 @@ class flow:
     def updateFlowPPS(self, newpps):
         self.pps = newpps
 
-    def appendFlowRecords(self, start_epoch, start_time, end_time, records):
+    def skipRecords(self, noOfRecords):
+        print("for flow " + self.flow_id_string + " skipped "+str(noOfRecords)+" at " + str(self.ioamSeqNo))
+        self.ioamSeqNo += noOfRecords
+
+    def appendFlowRecords(self, start_epoch, start_time, end_time, records, shuffle=False):
         global local_tz
         if start_time < self.start_time:
             return
@@ -123,6 +128,9 @@ class flow:
             seq_no_list[remove_index] = 0
         interpacket_time_ms = (1000 / self.pps)
         this_flow_packet_time_ms = start_epoch
+        if shuffle:
+            random.shuffle(seq_no_list)
+            print(" For flow " + self.flow_id_string + " out of order seq nos ", seq_no_list)
         for i in range(0,len(seq_no_list)):
             if (seq_no_list[i] == 0):
                 continue
@@ -289,16 +297,26 @@ if __name__ == '__main__':
     higher_rate_flow = randint(0,len(flowList)-1)
     drop_window = randint(0,number_of_seconds_of_data)
     drop_rate_flow = randint(0,len(flowList)-1)
+    burst_loss_flow = randint(0,len(flowList)-1)
+    burst_loss_window = randint(0,number_of_seconds_of_data)
+    shuffle_flow = randint(0,len(flowList)-1)
     for i in range(0,number_of_seconds_of_data):
         window_end = window_start + datetime.timedelta(seconds=1)
         #print("Starting data creation for flows in the window "+
              # window_start.strftime("%c") + " to "+window_end.strftime("%c"))
         records = []
         start_epoch = TimestampMillisec64(window_start)
+        if i%2 ==0 && i == burst_loss_window:
+            flowList[burst_loss_flow].skipRecords(100)
+            burst_loss_window = randint(i, number_of_seconds_of_data)
+        elif i == burst_loss_window:
+            flowList[burst_loss_flow].skipRecords(1000)
+            burst_loss_window = randint(i,number_of_seconds_of_data)
         for flow in flowList:
             flow.updateNodeResource(window_start, window_end)
-        for flow in flowList:
-            flow.appendFlowRecords(start_epoch, window_start, window_end, records)
+        for index, flow in enumerate(flowList):
+            flow.appendFlowRecords(start_epoch, window_start, window_end, records,
+                                   ((index==shuffle_flow) and (i == burst_loss_window)))
         sortedRecs = sorted(records)
         for record in sortedRecs:
             file_out.write(str(record))
