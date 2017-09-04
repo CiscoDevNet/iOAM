@@ -328,7 +328,7 @@ if __name__ == '__main__':
         if i == delay_window:
             flowList[higher_rate_flow].updateFlowPPS(flow_pps * 1.3)
         if i == drop_window:
-            flowList[drop_rate_flow].updateFlowPPS(flow_pps * 1.7)
+            flowList[drop_rate_flow].updateFlowPPS(flow_pps * 1.75)
         if i == (delay_window + 1):
             flowList[higher_rate_flow].updateFlowPPS(flow_pps)
         if i == (drop_window + 1):
