@@ -77,7 +77,13 @@ class flow:
         self.startSeqNo = self.ioamSeqNo = int(self.start_time.strftime('%Y%m%d'))
         self.lostSeq = []
 
-
+    def path_change(self):
+        list = self.mynet.findPath(self.sourceNode, self.destinationNode)
+        new_path = list[(self.flow_id + 1) % len(list)]
+        if self.path != new_path:
+           print("For flow "+self.flow_id_string+" path changed from \n", self.path)
+           print (" to ",new_path)
+           self.path = new_path
 
     def set5Tuple(self):
         self.sourceip6 = self.mynet.get_ip6_for_flow(self.sourceNode, self.flow_id)
@@ -103,7 +109,7 @@ class flow:
         print("for flow " + self.flow_id_string + " skipped "+str(noOfRecords)+" at " + str(self.ioamSeqNo))
         self.ioamSeqNo += noOfRecords
 
-    def appendFlowRecords(self, start_epoch, start_time, end_time, records, shuffle=False):
+    def appendFlowRecords(self, start_epoch, start_time, end_time, records, shuffle=False, duplicate=False):
         global local_tz
         if start_time < self.start_time:
             return
@@ -131,6 +137,9 @@ class flow:
         if shuffle:
             random.shuffle(seq_no_list)
             print(" For flow " + self.flow_id_string + " out of order seq nos ", seq_no_list)
+        elif duplicate:
+            seq_no_list[0:] = [start_ioam_seqno] * len(seq_no_list)
+            print(" For flow " + self.flow_id_string + " duplicate seq nos ", seq_no_list)
         for i in range(0,len(seq_no_list)):
             if (seq_no_list[i] == 0):
                 continue
@@ -293,6 +302,8 @@ if __name__ == '__main__':
     number_of_seconds_of_data = noofseconds
     data_start = flowList[0].start_time #earliest flows start time
     window_start = data_start
+
+    # Anomalies
     delay_window = randint(0,number_of_seconds_of_data)
     higher_rate_flow = randint(0,len(flowList)-1)
     drop_window = randint(0,number_of_seconds_of_data)
@@ -300,6 +311,10 @@ if __name__ == '__main__':
     burst_loss_flow = randint(0,len(flowList)-1)
     burst_loss_window = randint(0,number_of_seconds_of_data)
     shuffle_flow = randint(0,len(flowList)-1)
+    path_change_flow = randint(0,len(flowList)-1)
+    duplicate_seqno_flow = randint(0,len(flowList)-1)
+
+
     for i in range(0,number_of_seconds_of_data):
         window_end = window_start + datetime.timedelta(seconds=1)
         #print("Starting data creation for flows in the window "+
@@ -315,8 +330,10 @@ if __name__ == '__main__':
         for flow in flowList:
             flow.updateNodeResource(window_start, window_end)
         for index, flow in enumerate(flowList):
+            shuffle = (index==shuffle_flow) and (i == burst_loss_window)
+            duplicate = (index == duplicate_seqno_flow) and (i == burst_loss_window)
             flow.appendFlowRecords(start_epoch, window_start, window_end, records,
-                                   ((index==shuffle_flow) and (i == burst_loss_window)))
+                                   shuffle=shuffle, duplicate=duplicate)
         sortedRecs = sorted(records)
         for record in sortedRecs:
             file_out.write(str(record))
@@ -329,6 +346,7 @@ if __name__ == '__main__':
             flowList[higher_rate_flow].updateFlowPPS(flow_pps * 1.3)
         if i == drop_window:
             flowList[drop_rate_flow].updateFlowPPS(flow_pps * 1.75)
+            flowList[path_change_flow].path_change()
         if i == (delay_window + 1):
             flowList[higher_rate_flow].updateFlowPPS(flow_pps)
         if i == (drop_window + 1):
