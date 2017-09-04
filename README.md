@@ -72,7 +72,7 @@ following IETF internet drafts:
   network.
 
 - [Data Formats for In-band
-  OAM](https://tools.ietf.org/html/draft-brockners-inband-oam-data-07)
+  OAM](https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-00)
   discusses the data types and data formats for in-band OAM data
   records.
 
@@ -206,7 +206,7 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
               Lapukhov, P., Chang, R., "Requirements
               for in-situ OAM", October 2016.
 
- - [draft-brockners-inband-oam-data]
+ - [draft-ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
               Lapukhov, P., Chang, R., "Data Formats for in-situ
@@ -258,7 +258,7 @@ In development
 
 [draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-03
 [draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-03
-[draft-brockners-inband-oam-data]: https://tools.ietf.org/html/draft-brockners-inband-oam-data-07
+[draft-ietf-ippm-ioam-data]: https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-00
 [draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05
 [p4]: http://p4.org/p4/inband-network-telemetry/
 [SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
