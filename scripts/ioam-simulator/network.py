@@ -15,11 +15,44 @@ link_speed_gbps = 1  # link speed in Gbps
 queue_depth = 100
 '''
 
-spine_node_processing = 12500*1e-6 #  MPPS
+spine_node_processing = 5000*1e-6 #  MPPS
 leaf_node_processing = 2500*1e-6 #  MPPS
 link_speed_gbps = 1 #link speed in Gbps
 queue_depth = 100
 local_tz = tzlocal()
+flow_pps = 700
+
+
+def TimestampMillisec64(fortime):
+    return int((fortime - datetime.datetime(year=1970, month=1, day=1)).total_seconds() * 1000)
+
+
+class iOAMTraceRecord:
+    def __init__(self, created_at, flow_id, seq_no, path_trace):
+        self.flow_id = flow_id
+        self.created_at = created_at
+        self.seq_no = seq_no
+        self.path_trace = path_trace
+
+    def __repr__(self):
+        string_record = self.flow_id + " " + str(self.seq_no) + " "
+        path = ""
+        first = True
+        for node_trace in self.path_trace:
+            if not first:
+                path += " -> "
+            first = False
+            first_elm = True
+            for element in node_trace:
+                if not first_elm:
+                    path += ", "
+                path += str(element)
+                first_elm = False
+        return string_record + " " + path +"\n"
+
+    def __cmp__(self, other):
+        return (self.created_at - other.created_at)
+
 
 class flow:
     flow_seq_no = 1
@@ -31,13 +64,18 @@ class flow:
         self.flow_id = flow.flow_seq_no
         flow.flow_seq_no += 1
         self.start_time = datetime.datetime.utcnow()
-        self.epoch_ms = self.TimestampMillisec64()
+        self.epoch_ms = TimestampMillisec64(self.start_time)
         self.pps = pps #packets per second
         self.set5Tuple()
         list = mynet.findPath(sourceNode,destinationNode)
         ecmp_path_index = self.flow_id % len(list)
         self.path = list[ecmp_path_index]
-        self.ioamSeqNo = int(self.start_time.strftime('%Y%m%d'))
+        self.path_trace = []
+        for node_p in self.path:
+            self.path_trace.append(self.mynet.nodes[node_p].node_id)
+        self.startSeqNo = self.ioamSeqNo = int(self.start_time.strftime('%Y%m%d'))
+        self.lostSeq = []
+
 
 
     def set5Tuple(self):
@@ -45,14 +83,11 @@ class flow:
         self.destip6 = self.mynet.get_ip6_for_flow(self.destinationNode, self.flow_id)
         self.sourceport = randint(1000,50000)
         self.destport = randint(1000,50000)
-        self.record_hdr = str(self.sourceip6)+"-"+str(self.sourceport)
-        self.record_hdr += " to "
-        self.record_hdr += str(self.destip6)+"-"+str(self.destport)
-        self.record_hdr += " "
+        self.flow_id_string = str(self.sourceip6) + "-" + str(self.sourceport)
+        self.flow_id_string += "_to_"
+        self.flow_id_string += str(self.destip6) + "-" + str(self.destport)
+        self.flow_id_string += " "
         #print("flow id = " + str(self.flow_id) + self.record_hdr + self.start_time.strftime("%c"))
-
-    def TimestampMillisec64(self):
-        return int((self.start_time - datetime.datetime(year=1970, month=1, day=1)).total_seconds() * 1000)
 
     def updateNodeResource(self, start_time, end_time):
         if start_time < self.start_time:
@@ -63,14 +98,14 @@ class flow:
     def updateFlowPPS(self, newpps):
         self.pps = newpps
 
-    def printFlowRecords(self, start_time, end_time):
+    def appendFlowRecords(self, start_epoch, start_time, end_time, records):
         global local_tz
         if start_time < self.start_time:
             return
-        time_elapsed = start_time - self.start_time
-        start_ioam_seqno = self.ioamSeqNo + time_elapsed.seconds * self.pps
-        number_of_packets = (end_time.second - start_time.second) * self.pps
+        start_ioam_seqno = self.ioamSeqNo
+        number_of_packets = int((end_time.second - start_time.second) * self.pps)
         end_ioam_seqno = start_ioam_seqno + number_of_packets
+        self.ioamSeqNo = end_ioam_seqno
         seq_no_list = range(start_ioam_seqno,end_ioam_seqno)
         drop = 0
         for node_p in self.path:
@@ -79,36 +114,37 @@ class flow:
                 drop += drop_at_this_node
                 number_of_packets -= drop_at_this_node
         for i in range(0,int(drop)):
-            x = randint(0, (end_ioam_seqno-start_ioam_seqno) - 1)
-            remove_index = int(math.sin((1 / x)(1 / (1 - x))))
+            remove_index = x = randint(0, (end_ioam_seqno - start_ioam_seqno) - 1)
+            if (x > 1):
+                remove_index = int(math.sin((1 / x) * (1 / (1 - x))))
             while (seq_no_list[remove_index] == 0):
                 remove_index = (remove_index + 1) % (end_ioam_seqno-start_ioam_seqno)
+            self.lostSeq.append(seq_no_list[remove_index])
             seq_no_list[remove_index] = 0
+        interpacket_time_ms = (1000 / self.pps)
+        this_flow_packet_time_ms = start_epoch
         for i in range(0,len(seq_no_list)):
             if (seq_no_list[i] == 0):
                 continue
-            record = self.record_hdr
-            this_flow_packet_time_ms = self.epoch_ms + (1000 / self.pps) * seq_no_list[i]
             dt = datetime.datetime.fromtimestamp(this_flow_packet_time_ms / 1e3, local_tz)
-#            record += dt.strftime('%Y%m%d %X')
-#            record += " "
-            record += str(seq_no_list[i])
-            str_path = " "
             first = True
             begin_time = dt.replace(minute=0)
             timestamp = begin_time.microsecond / 1e3
+            path_timestamps = []
             for node_p in self.path:
-                timestamp += (self.mynet.nodes[node_p].packet_processing_time_ms) #node processing time
+                timestamp += self.mynet.nodes[node_p].packet_processing_time_ms  #node processing time
                 if not first:
-                    str_path += " -> "
                     # assuming 64B packet size - link delay in ms = 64 * 1e3/(link_speed_in_Gbps/8 * 1e9)
                     timestamp += 8 / (self.mynet.gr.edge[previous_node][node_p]['speed_gbps'] * 1e6) #link processing time
-                str_path += str(self.mynet.nodes[node_p].node_id) + ", "
-                str_path += str(timestamp)
+                path_timestamps.append(timestamp)
                 first = False
                 previous_node = node_p
-            record += str_path
-            print(record)
+            records.append(iOAMTraceRecord(this_flow_packet_time_ms,
+                                           self.flow_id_string,
+                                           seq_no_list[i],
+                                           list(zip(self.path_trace,path_timestamps))))
+            this_flow_packet_time_ms = this_flow_packet_time_ms + interpacket_time_ms
+
 
 class node:
     #mpps = 10 #million packet per seconds that this node can process
@@ -132,7 +168,7 @@ class node:
         self.percent_drop = 0
     def update_cpps (self, flow_pps):
         global queue_depth
-        queue_time_ms = 0.0001
+        queue_time_ms = 1000 / (self.mpps * 1e6)
         queue_depth_packets = queue_depth/1e6 #queue depth in MPPS
         self.cpps += flow_pps
         if (self.cpps > (self.mpps + queue_depth_packets)):
@@ -142,7 +178,8 @@ class node:
         elif (self.cpps > self.mpps):
             self.packet_processing_time_ms = 1000 / (self.mpps * 1e6) + \
                                              (self.cpps - self.mpps) * queue_time_ms #add queuing delay
-            print(self.name + " " + datetime.datetime.now().strftime("%c") + " experiencing queueing delay" + str(self.percent_drop))
+            print(self.name + " " + datetime.datetime.now().strftime("%c") + " experiencing queueing delay " +
+                  str(self.packet_processing_time_ms))
 
 
 class network:
@@ -224,6 +261,7 @@ if __name__ == '__main__':
         flows = int(args.flows)
     if args.noofseconds:
         noofseconds = int(args.noofseconds)
+    file_out = open('./ioam-data-'+datetime.datetime.utcnow().strftime('%Y%m%d')+'.txt', 'w+')
     my_network = network(spine_nodes, leaf_nodes)
     # my_network.print_all_shortest_paths("leaf1", "leaf0")
     # for i in range(1,20):
@@ -235,7 +273,7 @@ if __name__ == '__main__':
         if (source == dest):
             dest = (dest + 1) % (leaf_nodes)
         try:
-            this_flow = flow(my_network, "leaf"+str(source), "leaf"+str(dest))
+            this_flow = flow(my_network, "leaf"+str(source), "leaf"+str(dest),flow_pps)
             flowList.append(this_flow)
         except nx.exception.NetworkXNoPath:
             print("no path from leaf"+str(source)+" to destination leaf"+str(dest))
@@ -253,24 +291,38 @@ if __name__ == '__main__':
         window_end = window_start + datetime.timedelta(seconds=1)
         #print("Starting data creation for flows in the window "+
              # window_start.strftime("%c") + " to "+window_end.strftime("%c"))
+        records = []
+        start_epoch = TimestampMillisec64(window_start)
         for flow in flowList:
             flow.updateNodeResource(window_start, window_end)
         for flow in flowList:
-            flow.printFlowRecords(window_start, window_end)
+            flow.appendFlowRecords(start_epoch, window_start, window_end, records)
+        sortedRecs = sorted(records)
+        for record in sortedRecs:
+            file_out.write(str(record))
+
         window_start = window_end
         for node in my_network.nodes:
             my_network.nodes[node].reset_cpps()
         #simulate delay in the next window
         if i == delay_window:
-            flowList[higher_rate_flow].updateFlowPPS(150)
+            flowList[higher_rate_flow].updateFlowPPS(flow_pps*1.1)
         if i == drop_window:
-            flowList[drop_rate_flow].updateFlowPPS(300)
+            flowList[drop_rate_flow].updateFlowPPS(flow_pps * 2)
         if i == (delay_window + 1):
-            flowList[higher_rate_flow].updateFlowPPS(100)
+            flowList[higher_rate_flow].updateFlowPPS(flow_pps)
         if i == (drop_window + 1):
-            flowList[drop_rate_flow].updateFlowPPS(100)
-
-
+            flowList[drop_rate_flow].updateFlowPPS(flow_pps)
+    #Print stats
+    print ("Output in "+file_out.name)
+    print ("Number of spine nodes "+str(spine_nodes))
+    print ("Number of leaf nodes "+str(leaf_nodes))
+    print ("Number of flows "+str(len(flowList)))
+    for flow in flowList:
+        if len(flow.lostSeq) > 0:
+            print("Flow "+flow.flow_id_string+" lost "+str(len(flow.lostSeq)))
+            print(" lost seq nos ", flow.lostSeq)
+    file_out.close()
 
 
 
