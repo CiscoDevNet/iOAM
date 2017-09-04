@@ -306,7 +306,7 @@ if __name__ == '__main__':
              # window_start.strftime("%c") + " to "+window_end.strftime("%c"))
         records = []
         start_epoch = TimestampMillisec64(window_start)
-        if i%2 ==0 && i == burst_loss_window:
+        if i%2 == 0 and i == burst_loss_window:
             flowList[burst_loss_flow].skipRecords(100)
             burst_loss_window = randint(i, number_of_seconds_of_data)
         elif i == burst_loss_window:
