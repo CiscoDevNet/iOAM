@@ -15,12 +15,12 @@ link_speed_gbps = 1  # link speed in Gbps
 queue_depth = 100
 '''
 
-spine_node_processing = 5000*1e-6 #  MPPS
+spine_node_processing = 12500*1e-6 #  MPPS
 leaf_node_processing = 2500*1e-6 #  MPPS
 link_speed_gbps = 1 #link speed in Gbps
 queue_depth = 100
 local_tz = tzlocal()
-flow_pps = 700
+flow_pps = 100
 
 
 def TimestampMillisec64(fortime):
@@ -172,9 +172,11 @@ class node:
         queue_depth_packets = queue_depth/1e6 #queue depth in MPPS
         self.cpps += flow_pps
         if (self.cpps > (self.mpps + queue_depth_packets)):
+            self.packet_processing_time_ms = 1000 / (self.mpps * 1e6) + \
+                                             queue_depth_packets * queue_time_ms #add queuing delay
             self.drop_pps = self.cpps - (self.mpps + queue_depth_packets)
             self.percent_drop = 100 * self.drop_pps/self.cpps
-            print(self.name + " " + datetime.datetime.now().strftime("%c") + " experiencing drop rate" + str(self.percent_drop))
+            print(self.name + " " + datetime.datetime.now().strftime("%c") + " experiencing drop rate " + str(self.percent_drop))
         elif (self.cpps > self.mpps):
             self.packet_processing_time_ms = 1000 / (self.mpps * 1e6) + \
                                              (self.cpps - self.mpps) * queue_time_ms #add queuing delay
@@ -306,9 +308,9 @@ if __name__ == '__main__':
             my_network.nodes[node].reset_cpps()
         #simulate delay in the next window
         if i == delay_window:
-            flowList[higher_rate_flow].updateFlowPPS(flow_pps*1.1)
+            flowList[higher_rate_flow].updateFlowPPS(flow_pps * 1.3)
         if i == drop_window:
-            flowList[drop_rate_flow].updateFlowPPS(flow_pps * 2)
+            flowList[drop_rate_flow].updateFlowPPS(flow_pps * 1.7)
         if i == (delay_window + 1):
             flowList[higher_rate_flow].updateFlowPPS(flow_pps)
         if i == (drop_window + 1):
