@@ -21,10 +21,12 @@ Steps:
 
 3. Start creating containers:
 
-		sudo ./launch_lxc.sh -n rack1 -t vpp-ext -l 2
+		sudo ./launch_lxc.sh -n TGN1 -t vpp-ext -l 4
+		sudo ./launch_lxc.sh -n TGN2 -t vpp-ext -l 4
+		sudo ./launch_lxc.sh -n rack1 -t vpp-ext -l 3
 		sudo ./launch_lxc.sh -n rack2 -t vpp-ext -l 2
 		sudo ./launch_lxc.sh -n rack3 -t vpp-ext -l 2
-		sudo ./launch_lxc.sh -n rack4 -t vpp-ext -l 2
+		sudo ./launch_lxc.sh -n rack4 -t vpp-ext -l 3
 		sudo ./launch_lxc.sh -n fabric1 -t vpp-ext -l 4
 		sudo ./launch_lxc.sh -n fabric2 -t vpp-ext -l 4
 		sudo ./launch_lxc.sh -n fabric3 -t vpp-ext -l 4
