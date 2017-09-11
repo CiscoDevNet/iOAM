@@ -56,7 +56,6 @@ while read p; do
 	    sudo brctl addbr $bridge >> $LOG_FILE
 		if [ $? -ne 0 ]; then
 			log_print "\tError with $?"
-			exit $?
 		else
 			log_print "\tSuccess"
 		fi
@@ -74,7 +73,6 @@ while read p; do
 	    sudo ifconfig $bridge up >> $LOG_FILE
 		if [ $? -ne 0 ]; then
 			log_print "\tError with $?"
-			exit $?
 		else
 			log_print "\tSuccess"
 		fi
