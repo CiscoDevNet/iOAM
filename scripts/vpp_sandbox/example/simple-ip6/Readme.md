@@ -42,7 +42,7 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 		# Add VPP Specific mounts here
 		#lxc.mount.entry = <Local directory> scratch none ro,bind 0 0
 
-   Uncomment lxc.mount.entry line and replace <Local directory> by path to <git_checkout_path>/scripts/vpp_sandbox
+   Uncomment lxc.mount.entry line and replace "<Local directory>" by path to <git_checkout_path>/scripts/vpp_sandbox
 
  
 ## Steps to running this example
