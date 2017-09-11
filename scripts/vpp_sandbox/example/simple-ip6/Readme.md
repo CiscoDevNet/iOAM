@@ -3,7 +3,7 @@
 To create a topology as shown below, follow below stpes:
 
 ![Topology](./Topology-simple_ip6.png?raw=true "Topology")
-Prereq:
+## Prereq:
 * Pull the VPP code
 ```
 
@@ -26,7 +26,7 @@ sudo rm -rf /usr/lib/vpp_plugins/dpdk*.so
 ```
 this will save space for the vpp created
 
-* Pull the IAOM GIT
+* Pull this repo:
 ``` 
 git clone https://github.com/CiscoDevNet/iOAM.git
 ```
@@ -42,7 +42,7 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 		# Add VPP Specific mounts here
 		#lxc.mount.entry = <Local directory> scratch none ro,bind 0 0
 
-   Uncomment lxc.mount.entry line and replace <Local directory> by path up to <git_checkout_path>/scripts/vpp_sandbox
+   Uncomment lxc.mount.entry line and replace <Local directory> by path to <git_checkout_path>/scripts/vpp_sandbox
 
  
 ## Steps to running this example
