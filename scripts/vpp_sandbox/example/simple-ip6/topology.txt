@@ -1,1 +1,0 @@
-host1 -- a -- b -- c -- host2
