@@ -2,7 +2,7 @@
 
 To create a topology as shown below, follow below stpes:
 
-![Alt text](./topology.png?raw=true "Topology")
+![Alt text](./Topology-simple-ip6.png?raw=true "Topology")
 Prereq:
 1)      Pull the VPP code
  
