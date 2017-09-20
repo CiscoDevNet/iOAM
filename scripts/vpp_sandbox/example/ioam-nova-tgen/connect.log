@@ -1,0 +1,109 @@
+*********************Wed Sep 20 14:02:12 IST 2017 Starting **********************
+Creating bridge TGN1_rack1
+	Success
+Add interfaces to bridge - TGN1_rack1 h_TGN11 h_rack13
+	Success
+Bring up bridge - TGN1_rack1
+	Success
+Creating bridge TGN2_rack4
+	Success
+Add interfaces to bridge - TGN2_rack4 h_TGN21 h_rack43
+	Success
+Bring up bridge - TGN2_rack4
+	Success
+Creating bridge rack1_fabric1
+	Success
+Add interfaces to bridge - rack1_fabric1 h_rack11 h_fabric13
+	Success
+Bring up bridge - rack1_fabric1
+	Success
+Creating bridge rack1_fabric2
+	Success
+Add interfaces to bridge - rack1_fabric2 h_rack12 h_fabric23
+	Success
+Bring up bridge - rack1_fabric2
+	Success
+Creating bridge rack2_fabric1
+	Success
+Add interfaces to bridge - rack2_fabric1 h_rack21 h_fabric14
+	Success
+Bring up bridge - rack2_fabric1
+	Success
+Creating bridge rack2_fabric2
+	Success
+Add interfaces to bridge - rack2_fabric2 h_rack22 h_fabric24
+	Success
+Bring up bridge - rack2_fabric2
+	Success
+Creating bridge rack3_fabric3
+	Success
+Add interfaces to bridge - rack3_fabric3 h_rack31 h_fabric33
+	Success
+Bring up bridge - rack3_fabric3
+	Success
+Creating bridge rack3_fabric4
+	Success
+Add interfaces to bridge - rack3_fabric4 h_rack32 h_fabric43
+	Success
+Bring up bridge - rack3_fabric4
+	Success
+Creating bridge rack4_fabric3
+	Success
+Add interfaces to bridge - rack4_fabric3 h_rack41 h_fabric34
+	Success
+Bring up bridge - rack4_fabric3
+	Success
+Creating bridge rack4_fabric4
+	Success
+Add interfaces to bridge - rack4_fabric4 h_rack42 h_fabric44
+	Success
+Bring up bridge - rack4_fabric4
+	Success
+Creating bridge fabric1_spine1
+	Success
+Add interfaces to bridge - fabric1_spine1 h_fabric11 h_spine11
+	Success
+Bring up bridge - fabric1_spine1
+	Success
+Creating bridge fabric1_spine2
+	Success
+Add interfaces to bridge - fabric1_spine2 h_fabric12 h_spine21
+	Success
+Bring up bridge - fabric1_spine2
+	Success
+Creating bridge fabric2_spine1
+	Success
+Add interfaces to bridge - fabric2_spine1 h_fabric21 h_spine13
+	Success
+Bring up bridge - fabric2_spine1
+	Success
+Creating bridge fabric2_spine2
+	Success
+Add interfaces to bridge - fabric2_spine2 h_fabric22 h_spine22
+	Success
+Bring up bridge - fabric2_spine2
+	Success
+Creating bridge fabric3_spine1
+	Success
+Add interfaces to bridge - fabric3_spine1 h_fabric31 h_spine12
+	Success
+Bring up bridge - fabric3_spine1
+	Success
+Creating bridge fabric3_spine2
+	Success
+Add interfaces to bridge - fabric3_spine2 h_fabric32 h_spine23
+	Success
+Bring up bridge - fabric3_spine2
+	Success
+Creating bridge fabric4_spine1
+	Success
+Add interfaces to bridge - fabric4_spine1 h_fabric41 h_spine14
+	Success
+Bring up bridge - fabric4_spine1
+	Success
+Creating bridge fabric4_spine2
+	Success
+Add interfaces to bridge - fabric4_spine2 h_fabric42 h_spine24
+	Success
+Bring up bridge - fabric4_spine2
+	Success
