@@ -6,33 +6,111 @@ To create a topology as shown below, follow below stpes:
 
 Steps:
 
-1. Install LXC and copy templete file.
+1. Pull the VPP Code
+```
+
+git clone https://gerrit.fd.io/r/p/vpp.git
+ 
+make install-dep
+ 
+make bootstrap
+ 
+cd build-root
+ 
+make V=0 PLATFORM=vpp TAG=vpp install-deb
+ 
+sudo dpkg -i *.deb
+```
+* Delete dpdk plugin:
+
+```
+sudo rm -rf /usr/lib/vpp_plugins/dpdk*.so
+```
+this will save space for the vpp created
+
+* Pull this repo:
+``` 
+git clone https://github.com/CiscoDevNet/iOAM.git
+```
+2. Install LXC and copy templete file.
 
 		sudo apt-get install -y lxc lxctl lxc-templates util-linux
-		cp lxc-vpp-ext /usr/share/lxc/templates/lxc-vpp-ext
+		cp <git_checkout_path>/iOAM/scripts/vpp_sandbox/lxc-vpp-ext /usr/share/lxc/templates/lxc-vpp-ext
 
-2. Edit /usr/share/lxc/templetes/lxc-vpp-ext file:
+3. Edit /usr/share/lxc/templetes/lxc-vpp-ext file:
    Look for below lines:
+   		# Uncomment the following line
+		#lxc.mount.entry = /dev dev none ro,bind 0 0
 
 		# Add VPP Specific mounts here
 		#lxc.mount.entry = <Local directory> scratch none ro,bind 0 0
+	        eg: lxc.mount.entry = <git_checkout_path>/iOAM/scripts/vpp_sandbox scratch none ro,bind 0 0
 
    Uncomment lxc.mount.entry line and replace <Local directory> by path up to <git_checkout_path>/scripts/vpp_sandbox
 
-3. Start creating containers:
+4. Start the network of containers and setup the given topology:
+```
 
-		sudo ./launch_lxc.sh -n rack1 -t vpp-ext -l 2
-		sudo ./launch_lxc.sh -n rack2 -t vpp-ext -l 2
-		sudo ./launch_lxc.sh -n rack3 -t vpp-ext -l 2
-		sudo ./launch_lxc.sh -n rack4 -t vpp-ext -l 2
-		sudo ./launch_lxc.sh -n fabric1 -t vpp-ext -l 4
-		sudo ./launch_lxc.sh -n fabric2 -t vpp-ext -l 4
-		sudo ./launch_lxc.sh -n fabric3 -t vpp-ext -l 4
-		sudo ./launch_lxc.sh -n fabric4 -t vpp-ext -l 4
-		sudo ./launch_lxc.sh -n spine1 -t vpp-ext -l 4
-		sudo ./launch_lxc.sh -n spine2 -t vpp-ext -l 4
-		sudo ./launch_lxc.sh -n spine3 -t vpp-ext -l 4
-		sudo ./launch_lxc.sh -n spine4 -t vpp-ext -l 4
+   cd <git_checkout_path>/iOAM/scripts/vpp_sandbox/
+   sudo ./example/ioam-nova-tgen/start_setup.sh 
+   
+   This script performs the following,
+   	Launch all the containers with the interfaces between them
+	Connect the containers
+	Configure the rack4 device with tap0 int for export
+	Attach the containers and start the vpp with the startup config
+	Configure the TGNs with ip6 address and ip6 default route
+	Configure the rack4 tap0 with ip address
+	
+	Note: Once the script is executed sucessfully, attach to the containers and telnet to vpp
+	(telnet 0 5002) verify the interfaces and the address configured (show int addr)
+
+```
+5. Verify end to end connectivity with trace working . 
+```
+   5.1 Shell 1: sudo lxc-attach -n TGN1
+   5.2 Shell 2: sudo lxc-attach -n TGN2
+   5.3 Shell 3: sudo lxc-attach -n rack4 (which is our exporter node)
+   5.4 Shell 3: telnet 0 5002; clear trace; trace add af-packet-input 20 then quit
+   5.5 Shell 1: connect to TGN1 and start ping to TGN2 - lxc-attach -n TGN1, ping6 db12::1
+   5.6 Shell 3: show trace, quit
+   5.7 Shell 3: sudo lxc-attach -n rack4, telnet 0 5002, show trace
+   5.8 Shell 2: connect to TGN2 and start ping to TGN1 - lxc-attach -n TGN2, ping6 db11::1
+   
+   Verify the end to end connectivity working between TGN1 and TGN2
+   Verify the iOAM traces are displayed in the show trace in rack4
+```
+6. Install iperf Traffic generator in TGNs . 
+```
+    apt-get install git-core  //install git tool
+
+    apt-get install make    //install make tool, to make iperf3
+
+    git clone https://github.com/esnet/iperf   //clone iperf3 source code
+
+    cd iPerf  //go to the iperf3 source code folder, and compile it
+
+    ./configure
+
+    make
+
+    make install
+```
+7. Configure iperf Traffic generator in TGNs to generate traffic streams . 
+```
+    7.1 Shell 1: sudo lxc-attach -n TGN1
+    7.2 Shell 2: Go to the iperf3 source code folder
+    7.2 Shell 2: sudo lxc-attach -n TGN2
+    7.3 Shell 3: sudo lxc-attach -n rack4
+```
+
+
+* To delete the topology and clear all containers:
+```
+
+   cd <git_checkout_path>/iOAM/scripts/vpp_sandbox/
+   sudo ./example/simple-ip6/kill_simpleip6.sh 
+```
 
 4. Connect Containers:
 
