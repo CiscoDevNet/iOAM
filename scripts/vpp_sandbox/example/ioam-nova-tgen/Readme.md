@@ -94,7 +94,7 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 ```
 7. Configure iperf Traffic generator in TGNs to generate traffic streams . 
 ```
-   Start the iperf server in TGN2
+Start the iperf server in TGN2
     7.1 Shell 1: sudo lxc-attach -n TGN2
     7.2 Shell 1: Go to the iperf3 source code folder
     7.3 Shell 1: issue the command "iperf -s -V -u -B db12::1"
@@ -129,7 +129,7 @@ Start the iperf client in TGN1
     - l - length
     
     Eg: 
-   root@kharicha-VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# iperf -u -t 3000 -i 1 -V -c db12::1 -b 100k -l 1200
+    root@kharicha-VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# iperf -u -t 3000 -i 1 -V -c db12::1 -b 100k -l 1200
 
 	------------------------------------------------------------
 	Client connecting to db12::1, UDP port 5001
@@ -146,71 +146,104 @@ Start the iperf client in TGN1
 	!
 	[  3]  2999.0- 3000.0 sec  12.9 KBytes   106 Kbits/sec 
 ```
+8. Verify exporter works . 
+```
+    8.1 Shell 1: sudo lxc-attach -n rack4
+    8.2 Shell 1: ping 10.255.0.233 > source of the exporter
+    8.3 Shell 1: tcpdump -nxi tap0
+    Verify the tcp dump is recieved for the interface tap0 successfully.
+    Eg:
+    
+```
+9. Collect exported data using python script and write it to a file . 
+```
+    8.1 Shell 1: sudo lxc-attach -n rack4
+    8.2 Shell 2: got to the following location "<git_checkout_path>/scripts/vpp_sandbox/example_scripts"
+    8.3 Shell 3: Execute the python script :python parser.py"
+    
+    Eg:
+    root@kharicha-VirtualBox:~/pinger# pwd
+    /home/kharicha/pinger
+    root@kharicha-VirtualBox:~/pinger# python parser.py
+    
+    The data is written to the file /tmp/ioam-data-sample.txt
 
+    root@kharicha-VirtualBox:~/pinger# ls -l /tmp
+    total 916
+    -rw-r--r-- 1 root root 927953 Sep 20 11:15 ioam-data-sample.txt
+    -rw-r--r-- 1 root root   2165 Sep 20 09:14 vpp.log
+    root@kharicha-VirtualBox:~/pinger# 
+    
+    Eg:
+    Output printed in the shell:
+    	received trace option
+    	0000   09 00 3C 00 00 04 17 E1  D0 AD 3D 00 00 07 17 B4   ..<.......=.....
+	0010   88 EE 3E 00 00 09 17 E9  C2 F4 3F 00 00 05 17 E1   ..>.......?.....
+	0020   53 1A 40 00 00 01 17 E6  21 C8                     S.@.....!.
+	###[ iOAM Trace ]###
+  	optionType= 59
+  	optionLen = 42
+  	trace-type= 9
+  	elements-left= 0
+  	\trace-elt \
+   	|###[ iOAM node data ]###
+   	|  hoplim    = 60
+   	|  nodeID    = 4L
+   	|  timestamp = 400674989
+   	|###[ iOAM node data ]###
+   	|  hoplim    = 61
+   	|  nodeID    = 7L
+   	|  timestamp = 397707502
+   	|###[ iOAM node data ]###
+   	|  hoplim    = 62
+   	|  nodeID    = 9L
+   	|  timestamp = 401195764
+   	|###[ iOAM node data ]###
+   	|  hoplim    = 63
+   	|  nodeID    = 5L
+   	|  timestamp = 400642842
+   	|###[ iOAM node data ]###
+   	|  hoplim    = 64
+   	|  nodeID    = 1L
+   	|  timestamp = 400957896
+	received E2E option
+	0000   00 00 00 00 AE 30                                  .....0
+	###[ iOAM E2E ]###
+  	optionType= 29
+  	optionLen = 6
+  	e2e_type  = 0
+  	e2e_res   = 0
+  	seq_np    = 44592
+	out_str =  db11::1 to db12::1 44592 
+	out_str =  db11::1 to db12::1 44592 4, 400674989 -> 
+	out_str =  db11::1 to db12::1 44592 4, 400674989 -> 7, 397707502 -> 
+	out_str =  db11::1 to db12::1 44592 4, 400674989 -> 7, 397707502 -> 9, 401195764 -> 
+	out_str =  db11::1 to db12::1 44592 4, 400674989 -> 7, 397707502 -> 9, 401195764 -> 5, 400642842 -> 
+	out_str =  db11::1 to db12::1 44592 4, 400674989 -> 7, 397707502 -> 9, 401195764 -> 5, 400642842 -> 1, 400957896 -> 
+	out_str =  db11::1 to db12::1 44592 4, 400674989 -> 7, 397707502 -> 9, 401195764 -> 5, 400642842 -> 1, 400957896
 
-* To delete the topology and clear all containers:
+	Processed message is:
+	{"src": "db11::1", "node_6_id": 4, "node_5_id": 7, "end_to_end_delay": -282907, "dst": "db12::1", "node_4_id": 9, "topic": 	          "ioam-trace", "node_3_id": 5, "node_2_id": 1}
+
+Output printed in the file:
+	db11::1 to db12::1 35119 4, 3791958029 -> 8, 3792512390 -> 10, 3792474387 -> 6, 3791854200 -> 1, 3792239688
+
+	Data format:
+	Flow-name - SrcIP-SrcPort to DestIP-DestPort : db11::1 to db12::1
+	Seq-no - Integer : 35119 
+	path - PathMap in format [nodeID1], [timestamp] -> [nodeID2], [timestamp]... : 4, 3791958029 -> 8, 3792512390   ...
+    
+```
+10. To delete the topology and clear all containers:
 ```
 
    cd <git_checkout_path>/iOAM/scripts/vpp_sandbox/
-   sudo ./example/simple-ip6/kill_simpleip6.sh 
+   sudo ./example/ioam-nova-tgen/kill_setup.sh 
+   
+   This script performs the following,
+   	Delete all the containers Launched
+	
+   Once the script is exceuted successfully please perform a "sudo reboot now" to clear all the bridge
+   connections.
 ```
 
-4. Connect Containers:
-
-		sudo ./connect_lxc.sh -c ./example/udp_probe/config.txt -f ./example/udp_probe/connect.log
-
-5. Connect to each container and start VPP with startup config files provided.
-
-		Rack1 lxc:
-		sudo lxc-attach -n rack1
-		vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/rack_sw_1.conf cli-listen localhost:5002 } &
-
-		Rack2 lxc:
-                sudo lxc-attach -n rack2
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/rack_sw_2.conf cli-listen localhost:5002 } &
-
-		Rack3 lxc:
-                sudo lxc-attach -n rack3
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/rack_sw_3.conf cli-listen localhost:5002 } &
-
-		Rack4 lxc:
-                sudo lxc-attach -n rack4
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/rack_sw_4.conf cli-listen localhost:5002 } &
-
-		Fabric1 lxc:
-                sudo lxc-attach -n fabric1
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/fabric_sw_1.conf cli-listen localhost:5002 } &
-
-		Fabric2 lxc:
-                sudo lxc-attach -n fabric2
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/fabric_sw_2.conf cli-listen localhost:5002 } &
-
-		Fabric3 lxc:
-                sudo lxc-attach -n fabric3
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/fabric_sw_3.conf cli-listen localhost:5002 } &
-
-		Fabric4 lxc:
-                sudo lxc-attach -n fabric4
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/fabric_sw_4.conf cli-listen localhost:5002 } &
-
-		Spine1 lxc:
-                sudo lxc-attach -n spine1
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/spine_sw_1.conf cli-listen localhost:5002 } &
-
-		Spine2 lxc:
-                sudo lxc-attach -n spine2
-                vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/udp_probe/spine_sw_2.conf cli-listen localhost:5002 } &
-
-
-6. To delete the topology and clear all containers:
-
-		sudo ./launch_lxc.sh -n rack1 -d
-		sudo ./launch_lxc.sh -n rack2 -d
-		sudo ./launch_lxc.sh -n rack3 -d
-		sudo ./launch_lxc.sh -n rack4 -d
-		sudo ./launch_lxc.sh -n fabric1 -d
-		sudo ./launch_lxc.sh -n fabric2 -d
-		sudo ./launch_lxc.sh -n fabric3 -d
-		sudo ./launch_lxc.sh -n fabric4 -d
-		sudo ./launch_lxc.sh -n spine1 -d
-		sudo ./launch_lxc.sh -n spine2 -d
