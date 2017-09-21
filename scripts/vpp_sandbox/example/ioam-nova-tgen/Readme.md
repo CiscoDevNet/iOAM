@@ -230,7 +230,7 @@ Start the iperf client in TGN1
     0x0130:  0009 a0a7 68de 3f00 0005 a0ae 8461 4000   >>>> 0009 node id 0005 node id
     0x0140:  0001 a0a5 b3ba 1d06 0000 0000 026a 0000   >>>> 0001 node id 026a seq no
 ```
-9. Collect exported data using python script and write it to a file . 
+9. Collect exported data using python script which writes it to a file . 
 ```
     8.1 Shell 1: sudo lxc-attach -n rack4
     8.2 Shell 2: got to the following location "<git_checkout_path>/scripts/vpp_sandbox/example_scripts"
