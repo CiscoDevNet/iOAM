@@ -38,16 +38,18 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 		cp <git_checkout_path>/iOAM/scripts/vpp_sandbox/lxc-vpp-ext /usr/share/lxc/templates/lxc-vpp-ext
 
 3. Edit /usr/share/lxc/templetes/lxc-vpp-ext file:
+``` 
    Look for below lines:
-   		# Uncomment the following line
-		#lxc.mount.entry = /dev dev none ro,bind 0 0
+   	# Uncomment the following line
+	#lxc.mount.entry = /dev dev none ro,bind 0 0
 
-		# Add VPP Specific mounts here
-		#lxc.mount.entry = <Local directory> scratch none ro,bind 0 0
-	        eg: lxc.mount.entry = <git_checkout_path>/iOAM/scripts/vpp_sandbox scratch none ro,bind 0 0
+	# Add VPP Specific mounts here
+	#lxc.mount.entry = <Local directory> scratch none ro,bind 0 0
+	eg: lxc.mount.entry = <git_checkout_path>/iOAM/scripts/vpp_sandbox scratch none ro,bind 0 0
 
-   Uncomment lxc.mount.entry line and replace <Local directory> by path up to <git_checkout_path>/scripts/vpp_sandbox
-
+   	Uncomment lxc.mount.entry line and replace <Local directory> by path up to 
+	<git_checkout_path>/scripts/vpp_sandbox
+```
 4. Start the network of containers and setup the given topology:
 ```
 
@@ -83,25 +85,66 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 6. Install iperf Traffic generator in TGNs . 
 ```
     apt-get install git-core  //install git tool
-
     apt-get install make    //install make tool, to make iperf3
-
     git clone https://github.com/esnet/iperf   //clone iperf3 source code
-
     cd iPerf  //go to the iperf3 source code folder, and compile it
-
     ./configure
-
     make
-
     make install
 ```
 7. Configure iperf Traffic generator in TGNs to generate traffic streams . 
 ```
+   Start the iperf server in TGN2
+    7.1 Shell 1: sudo lxc-attach -n TGN2
+    7.2 Shell 1: Go to the iperf3 source code folder
+    7.3 Shell 1: issue the command "iperf -s -V -u -B db12::1"
+    - s - server
+    - V - V6
+    - u - UDP Traffic
+    - B - bind to the v6 address
+    
+    Eg: 
+    root@kharicha-VirtualBox:~/pinger/iperf-3.0.6# iperf -s -V -u -B db12::1
+	
+	------------------------------------------------------------
+	Server listening on UDP port 5001
+	Binding to local address db12::1
+	Receiving 1470 byte datagrams
+	UDP buffer size:  208 KByte (default)
+	------------------------------------------------------------
+
+	[  3] local db12::1 port 5001 connected with db11::1 port 35823
+
+Start the iperf client in TGN1 
     7.1 Shell 1: sudo lxc-attach -n TGN1
-    7.2 Shell 2: Go to the iperf3 source code folder
-    7.2 Shell 2: sudo lxc-attach -n TGN2
-    7.3 Shell 3: sudo lxc-attach -n rack4
+    7.2 Shell 1: Go to the iperf3 source code folder
+    7.3 Shell 1: issue the command "iperf -u -t 3000 -i 1 -V -c db12::1 -b 100k -l 1200"
+    - s - server
+    - V - V6
+    - u - UDP Traffic
+    - t - timeout
+    - i - interval
+    - c - client
+    - b - bandwidth
+    - l - length
+    
+    Eg: 
+   root@kharicha-VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# iperf -u -t 3000 -i 1 -V -c db12::1 -b 100k -l 1200
+
+	------------------------------------------------------------
+	Client connecting to db12::1, UDP port 5001
+	Sending 1200 byte datagrams
+	UDP buffer size:  208 KByte (default)
+	------------------------------------------------------------
+	[  3] local db11::1 port 60740 connected with db12::1 port 5001
+	[ ID] Interval       Transfer     Bandwidth
+	[  3]  0.0- 1.0 sec  12.9 KBytes   106 Kbits/sec
+	[  3]  1.0- 2.0 sec  11.7 KBytes  96.0 Kbits/sec
+	[  3]  2.0- 3.0 sec  12.9 KBytes   106 Kbits/sec
+	!
+	!
+	!
+	[  3]  2999.0- 3000.0 sec  12.9 KBytes   106 Kbits/sec 
 ```
 
 
