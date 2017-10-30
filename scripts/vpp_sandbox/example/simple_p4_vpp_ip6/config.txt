@@ -1,0 +1,6 @@
+host1_a h_host11 h_a1
+a_S1 h_a2 h_S11
+S1_b h_S12 h_b1
+b_S2 h_b2 h_S21
+S2_c h_S22 h_c1
+c_host2 h_c2 h_host21

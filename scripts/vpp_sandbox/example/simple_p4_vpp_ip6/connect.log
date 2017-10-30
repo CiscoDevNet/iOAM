@@ -1,0 +1,37 @@
+*********************Mon Oct 30 02:37:02 EDT 2017 Starting **********************
+Creating bridge host1_a
+	Success
+Add interfaces to bridge - host1_a h_host11 h_a1
+	Success
+Bring up bridge - host1_a
+	Success
+Creating bridge a_S1
+	Success
+Add interfaces to bridge - a_S1 h_a2 h_S11
+	Success
+Bring up bridge - a_S1
+	Success
+Creating bridge S1_b
+	Success
+Add interfaces to bridge - S1_b h_S12 h_b1
+	Success
+Bring up bridge - S1_b
+	Success
+Creating bridge b_S2
+	Success
+Add interfaces to bridge - b_S2 h_b2 h_S21
+	Success
+Bring up bridge - b_S2
+	Success
+Creating bridge S2_c
+	Success
+Add interfaces to bridge - S2_c h_S22 h_c1
+	Success
+Bring up bridge - S2_c
+	Success
+Creating bridge c_host2
+	Success
+Add interfaces to bridge - c_host2 h_c2 h_host21
+	Success
+Bring up bridge - c_host2
+	Success
