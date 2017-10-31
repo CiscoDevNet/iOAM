@@ -44,8 +44,8 @@ lxc-attach -n S2 -- ip -6 route add db01::0/64 via db03::1
 lxc-attach -n S2 -- ip -6 route add db02::0/64 via db03::1
 lxc-attach -n S2 -- ip -6 route add db05::0/64 via db04::2
 #lxc-attach -n S2 -- vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/simple_p4_vpp_ip6/s2.conf cli-listen localhost:5002 }
-sleep 10
-#lxc-attach -n c -- vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/simple_p4_vpp_ip6/c.conf cli-listen localhost:5002 }
+sleep 30
+lxc-attach -n c -- vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/simple_p4_vpp_ip6/c.conf cli-listen localhost:5002 }
 #lxc-attach -n c -- ip -6 address add db04::2/64 dev l_c1
 #lxc-attach -n c -- ip -6 address add db05::1/64 dev l_c2
 #lxc-attach -n c -- ip -6 route add db00::0/64 via db04::1
