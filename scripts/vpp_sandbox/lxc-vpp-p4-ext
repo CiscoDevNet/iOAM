@@ -51,6 +51,8 @@ $rootfs/etc/ssh \
 $rootfs/etc/sysconfig/network-scripts \
 $rootfs/etc/lxc \
 $rootfs/etc/virl \
+$rootfs/etc \
+$rootfs/var \
 $rootfs/dev \
 $rootfs/run/shm \
 $rootfs/proc \
@@ -97,6 +99,7 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/lib"
 $rootfs/home/osboxes \
 $rootfs/home/osboxes/p4git "
 
+    cp /etc/hosts $rootfs/etc
     mkdir -p $tree
     if [ $? -ne 0 ]; then
         return 1
@@ -216,9 +219,9 @@ lxc.aa_profile = unconfined
 #lxc.mount.entry = /dev dev none ro,bind 0 0
 #Just modifying the lib for rw mode
 lxc.mount.entry = /lib lib none rw,bind 0 0
-lxc.mount.entry = /bin bin none ro,bind 0 0
-lxc.mount.entry = /usr usr none ro,bind 0 0
-lxc.mount.entry = /sbin sbin none ro,bind 0 0
+lxc.mount.entry = /bin bin none rw,bind 0 0
+lxc.mount.entry = /usr usr none rw,bind 0 0
+lxc.mount.entry = /sbin sbin none rw,bind 0 0
 lxc.mount.entry = tmpfs var/run/sshd tmpfs mode=0644 0 0
 lxc.mount.entry = proc proc proc nodev,noexec,nosuid 0 0
 lxc.mount.entry = sysfs sys sysfs ro 0 0
