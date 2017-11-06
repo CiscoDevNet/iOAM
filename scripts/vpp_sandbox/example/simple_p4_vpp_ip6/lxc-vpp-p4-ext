@@ -232,7 +232,7 @@ lxc.mount.entry = /etc/alternatives etc/alternatives none ro,bind 0 0
 # Add P4 Specific mounts here
 lxc.mount.entry = /home/osboxes/p4git home/osboxes/p4git none rw,bind 0 0
 # Add VPP Specific mounts here
-lxc.mount.entry = /home/osboxes/iOAM/scripts/vpp_sandbox scratch none ro,bind 0 0
+lxc.mount.entry = /home/osboxes/ioam/iOAM/scripts/vpp_sandbox scratch none rw,bind 0 0
 # Enable following line to pin VPPs to core 0
 #lxc.cgroup.cpuset.cpus = 0
 lxc.cgroup.cpu.cfs_quota_us = -1
