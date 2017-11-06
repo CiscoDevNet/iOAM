@@ -1,0 +1,69 @@
+============== VPP CLI's ==========
+ clear trace
+ clear runtime 
+ clear errors 
+ trace add af-packet-input 50
+ set interface mac address host-l_b1 02:fe:2c:49:62:2b
+ show hardware-interfaces 
+ show classify flow                       show classify flow type [ip4|ip6]
+ show classify policer                    show classify policer type [ip4|ip6|l2]
+ show classify tables                     show classify tables [index <nn>]
+
+show ioam-trace profile  
+ HOP BY HOP OPTIONS - TRACE CONFIG - 
+                        Trace Type : 0x9 (9)
+         Trace timestamp precision : 0 (Seconds)
+                Num of trace nodes : 3
+                           Node-id : 0x3 (3)
+                          App Data : 0x0 (0)
+
+
+
+cp <git_checkout_path>/iOAM/scripts/vpp_sandbox/lxc-vpp-ext /usr/share/lxc/templates/lxc-vpp-ext
+
+
+
+=========== P4 CLI's ===============
+show_tables
+
+table_dump <table_name>
+ table_dump ipv6_lpm
+ table_dump ioam_trace
+
+
+### Starting a simple switch
+
+simple_switch -i 1@l_S11 -i 2@l_S12 --pcap --thrift-port 9090 --nanolog ipc:///tmp/bm-0-log.ipc /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/build/ioam_demo.p4.json --log-console –debugger
+
+
+### Starting a simple switch CLI to program the switch
+
+simple_switch_CLI --json /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/build/ioam_demo.p4.json --thrift-port 9090
+
+
+### Compling the p4 program
+
+
+p4c-bm2-ss --p4v 16 "ioam_demo.p4" -o "ioam_demo.p4.json"
+
+
+================= Linux commands 
+
+## To know if the port 9090 of localhost is up 
+
+nc -zv 127.0.0.1 9090
+
+## To know the ports which are in listen mode
+
+sudo netstat -anp 
+
+### Enable forwarding in linux 
+ 
+sudo sysctl -w net.ipv6.conf.all.forwarding=1
+
+
+
+#### TCPDUMP
+
+tcpdump -i l_S1 -xx -v -w /home/osboxes/p4git/l_S1.pcap
+
