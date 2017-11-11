@@ -2,7 +2,8 @@
 
 To create a topology as shown below, follow below stpes:
 
-![Topology](./Topology-simple_ip6.png?raw=true "Topology")
+
+![Topology](./p4_vpp_topology.png?raw=true "Topology")
 ## Prereq:
 * Pull the VPP code
 ```
@@ -34,15 +35,8 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 * Install LXC and copy templete file.
 
 		sudo apt-get install -y lxc lxctl lxc-templates util-linux
-		 cp <git_checkout_path>/iOAM/scripts/vpp_sandbox/lxc-vpp-ext /usr/share/lxc/templates/lxc-vpp-ext
+		 cp <git_checkout_path>/iOAM/scripts/vpp_sandbox/lxc-vpp-p4-ext /usr/share/lxc/templates/lxc-vpp-p4-ext
 
-* Edit /usr/share/lxc/templetes/lxc-vpp-ext file:
-   Look for below lines:
-
-		# Add VPP Specific mounts here
-		#lxc.mount.entry = <Local directory> scratch none ro,bind 0 0
-
-   Uncomment lxc.mount.entry line and replace "\<Local directory\>" by path to <git_checkout_path>/scripts/vpp_sandbox
 
  
 ## Steps to running this example
@@ -51,30 +45,55 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 * Start the network of containers:
 ```
 
-   cd <git_checkout_path>/iOAM/scripts/vpp_sandbox/
+   cd /home/osboxes/ioam/iOAM/scripts/vpp_sandbox
    sudo ./example/simple-ip6/start.sh 
 ```
 
-* Open 2 shells. 
+* Open 10 shells. 
 ```
-   4.1 Shell 1: sudo lxc-attach -n a
-   4.2 Shell 1: telnet 0 5002; trace add af-packet-input 20 then quit
-   4.3 Shell 1: sudo lxc-attach -n c
-   4.3 Shell 1: telnet 0 5002; trace add af-packet-input 20
-   4.4 Shell 2:  Connect to host1 and start ping to host2 - lxc-attach -n host1, ping6 db03::2
-   4.5 Shell 1: show trace, quit
-   4.6 Shell 1: sudo lxc-attach -n a, telnet 0 5002, show trace
-```
-* To delete the topology and clear all containers:
-```
+Shell 1: sudo lxc-attach -n a
+Shell 2: telnet 0 5002; trace add af-packet-input 20 then quit
+Shell 3: sudo lxc-attach -n b
+Shell 4: telnet 0 5002; trace add af-packet-input 20
+Shell 5: sudo lxc-attach -n c
+Shell 6: telnet 0 5002; trace add af-packet-input 20
+Shell 1: sudo lxc-attach -n S1
+	And run : 
+	simple_switch -i 1@l_S11 -i 2@l_S12 --pcap --thrift-port 9090 --nanolog ipc:///tmp/bm-0-log.ipc /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/build/ioam_demo.p4.json --log-console –debugger
+Shell 1: sudo lxc-attach -n S1
+        And run :
+        /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/configure_switch_entries.py /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/s1-commands.txt 9090
+Shell 1: sudo lxc-attach -n S2
+	And run : 
+	simple_switch -i 1@l_S21 -i 2@l_S22 --pcap --thrift-port 9090 --nanolog ipc:///tmp/bm-0-log.ipc /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/build/ioam_demo.p4.json --log-console –debugger
+Shell 1: sudo lxc-attach -n S2
+       And run :
+/home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/configure_switch_entries.py /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/s2-commands.txt 9090
 
-   cd <git_checkout_path>/iOAM/scripts/vpp_sandbox/
-   sudo ./example/simple-ip6/kill_simpleip6.sh 
-```
+Shell 5:  Connect to host1 
+sudo lxc-attach -n host1
+
+and do 
+
+cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4 
+./send_from_h1.py db05::2 "Hello from Host1"
+
+
+
+Shell :  Connect to host2 
+sudo lxc-attach -n host2
+
+
+cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4 
+./receive.py l_host21
+
+Shell 7: sudo lxc-attach -n a, telnet 0 5002, show trace
+Shell 7: sudo lxc-attach -n b, telnet 0 5002, show trace
+Shell 7: sudo lxc-attach -n c, telnet 0 5002, show trace
 
 ### Sample output
 
-* After ping, vpp trace in a:
+* After sending packet, vpp trace in a:
 
 ```
 VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox$ sudo lxc-attach -n a
@@ -183,4 +202,5 @@ Packet 1
   IP6: 02:fe:7c:71:bd:d1 -> a6:7f:d0:5a:5d:7e
   IP6_HOP_BY_HOP_OPTIONS: db00::2 -> db03::2
 ```
+
 
