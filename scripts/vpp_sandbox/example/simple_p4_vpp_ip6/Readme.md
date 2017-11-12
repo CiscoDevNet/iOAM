@@ -31,6 +31,34 @@ this will save space for the vpp created
 ``` 
 git clone https://github.com/CiscoDevNet/iOAM.git
 ```
+* Pull this repo only if you are not using the VM provided !!:
+``` 
+git clone https://github.com/manishjangid/tutorials.git
+2. cd tutorials
+3. git checkout p4_programs
+4. cd my_exercises.
+
+```
+
+* 
+* Update the Ioam P4 GIT
+cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises
+git pull
+
+and do compile the code again :) , its pretty simple 
+cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/
+./run.sh 
+
+
+And this will compile it for you , else you can manually do it also by going in build folder and running this 
+
+p4c-bm2-ss --p4v 16 "ioam_demo.p4" -o "ioam_demo.p4.json"
+
+
+
+Once its compile , you are good to run P4 Demo 
+
+
 
 * Install LXC and copy templete file.
 
@@ -49,7 +77,7 @@ git clone https://github.com/CiscoDevNet/iOAM.git
    sudo ./example/simple_p4_vpp_ip6/start.sh 
 ```
 
-* Open 10 shells. 
+* Open 15 shells. 
 ```
 Shell 1: sudo lxc-attach -n a
 Shell 2: telnet 0 5002; trace add af-packet-input 20 then quit
@@ -57,22 +85,24 @@ Shell 3: sudo lxc-attach -n b
 Shell 4: telnet 0 5002; trace add af-packet-input 20
 Shell 5: sudo lxc-attach -n c
 Shell 6: telnet 0 5002; trace add af-packet-input 20
-Shell 1: sudo lxc-attach -n S1
+Shell 7: sudo lxc-attach -n S1
 	And run : 
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 	simple_switch -i 1@l_S11 -i 2@l_S12 --pcap --thrift-port 9090 --nanolog ipc:///tmp/bm-0-log.ipc /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/build/ioam_demo.p4.json --log-console –debugger
-Shell 1: sudo lxc-attach -n S1
+Shell 8: sudo lxc-attach -n S1
         And run :
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
         /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/configure_switch_entries.py /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/s1-commands.txt 9090
-Shell 1: sudo lxc-attach -n S2
+Shell 9: sudo lxc-attach -n S2
 	And run : 
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 	simple_switch -i 1@l_S21 -i 2@l_S22 --pcap --thrift-port 9090 --nanolog ipc:///tmp/bm-0-log.ipc /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/build/ioam_demo.p4.json --log-console –debugger
-Shell 1: sudo lxc-attach -n S2
+Shell 10: sudo lxc-attach -n S2
        And run :
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/configure_switch_entries.py /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/s2-commands.txt 9090
 
-Shell 5:  Connect to host1 
+Shell 11:  Connect to host1 
 sudo lxc-attach -n host1
 
 and do 
@@ -82,16 +112,16 @@ cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vp
 
 
 
-Shell :  Connect to host2 
+Shell 12:  Connect to host2 
 sudo lxc-attach -n host2
 
 
 cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4 
 ./receive.py l_host21
 
-Shell 7: sudo lxc-attach -n a, telnet 0 5002, show trace
-Shell 7: sudo lxc-attach -n b, telnet 0 5002, show trace
-Shell 7: sudo lxc-attach -n c, telnet 0 5002, show trace
+Shell 13: sudo lxc-attach -n a, telnet 0 5002, show trace
+Shell 14: sudo lxc-attach -n b, telnet 0 5002, show trace
+Shell 15: sudo lxc-attach -n c, telnet 0 5002, show trace
 
 ### Sample output
 ```
