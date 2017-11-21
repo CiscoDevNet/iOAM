@@ -128,6 +128,7 @@ Shell 15: sudo lxc-attach -n c, telnet 0 5002, show trace
 * Packet which was sent from Host1
 
 bash-4.3# ./send_from_h1.py db05::2 "Hello" 
+```
 addr is :db05::2
 addr is  [(10, 1, 6, '', ('db05::2', 0, 0, 0)), (10, 2, 17, '', ('db05::2', 0, 0, 0)), (10, 3, 0, '', ('db05::2', 0, 0, 0))]
 sending on interface l_host11 to db05::2
@@ -156,8 +157,8 @@ bash-4.3#
 
 
 * After sending packet, vpp trace in a:
-
 ```
+
 VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox$ sudo lxc-attach -n a
 VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# telnet 0 5002
 Trying 0.0.0.0...
@@ -215,6 +216,7 @@ SeqNo = 0x2
 
 vpp#     
 
+
 * At Switch S1 , which is a P4 Enabled Switch , we insert the Incremental Hop-By-Hop Header . At interface S11, There was no incremental
   Header , it had only the Pre-allocated header inserted by the VPP at node a.
 ```
@@ -223,7 +225,7 @@ vpp#
 
 At interface S12 , P4 had inserted the new incremental Hop-By-Hop Header along with Pre-allocated header inserted by the VPP at node a
 
-![S1-S12_Snapshot](./snapshots/S1-S12_Sanpshot.png?raw=true "Wireshark-S1-S12_Snapshot")
+![S1-S12_Snapshot](./snapshots/S1-S12_Snapshot.png?raw=true "Wireshark-S1-S12_Snapshot")
 
 
 * Vpp trace in b:
@@ -281,11 +283,11 @@ vpp#
   Header which was added at the Switch S1 , also it has the Pre-allocated header inserted by the VPP at node a and node b.
 ```
 
-![S1-S21_Snapshot](./snapshots/S1-S21_Sanpshot.png?raw=true "Wireshark-S1-S21_Snapshot")
+![S2-S21_Snapshot](./snapshots/S2-S21_Snapshot.png?raw=true "Wireshark-S2-S21_Snapshot")
 
 At interface S22 , P4 had inserted the another incremental Hop-By-Hop Header along with Pre-allocated header inserted by the VPP at node a and node b. 
 
-![S1-S22_Snapshot](./snapshots/S1-S22_Sanpshot.png?raw=true "Wireshark-S1-S22_Snapshot")
+![S2-S22_Snapshot](./snapshots/S2-S22_Snapshot.png?raw=true "Wireshark-S2-S22_Snapshot")
 
 
 * Vpp trace in c:
@@ -346,4 +348,9 @@ Packet 1
 
 
 vpp#   
+
+* At Host2 , when we recieve the packet , it has been stripped with IOAM headers (both Incremental and Pre-allocated one)
+```
+
+![Host2_Snapshot](./snapshots/Host2_Snapshot.png?raw=true "Wireshark-Host2_Snapshot")
 
