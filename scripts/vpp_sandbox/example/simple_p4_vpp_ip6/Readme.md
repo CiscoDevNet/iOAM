@@ -42,18 +42,20 @@ git clone https://github.com/manishjangid/tutorials.git
 
 * 
 * Update the Ioam P4 GIT
+```
 cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises
 git pull
-
+```
 and do compile the code again :) , its pretty simple 
+```
 cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vpp_p4/
 ./run.sh 
-
+```
 
 And this will compile it for you , else you can manually do it also by going in build folder and running this 
-
+```
 p4c-bm2-ss --p4v 16 "ioam_demo.p4" -o "ioam_demo.p4.json"
-
+```
 
 
 Once its compile , you are good to run P4 Demo 
@@ -61,10 +63,10 @@ Once its compile , you are good to run P4 Demo
 
 
 * Install LXC and copy templete file.
-
+```
 		sudo apt-get install -y lxc lxctl lxc-templates util-linux
 		 cp <git_checkout_path>/iOAM/scripts/vpp_sandbox/lxc-vpp-p4-ext /usr/share/lxc/templates/lxc-vpp-p4-ext
-
+```
 
  
 ## Steps to running this example
@@ -122,13 +124,14 @@ cd /home/osboxes/p4git/p4_tutorials/tutorials/my_exercises/ipv6_examples/ioam/vp
 Shell 13: sudo lxc-attach -n a, telnet 0 5002, show trace
 Shell 14: sudo lxc-attach -n b, telnet 0 5002, show trace
 Shell 15: sudo lxc-attach -n c, telnet 0 5002, show trace
+```
 
 ### Sample output
-```
-* Packet which was sent from Host1
 
-bash-4.3# ./send_from_h1.py db05::2 "Hello" 
+* Packet which was sent from Host1
 ```
+bash-4.3# ./send_from_h1.py db05::2 "Hello" 
+
 addr is :db05::2
 addr is  [(10, 1, 6, '', ('db05::2', 0, 0, 0)), (10, 2, 17, '', ('db05::2', 0, 0, 0)), (10, 3, 0, '', ('db05::2', 0, 0, 0))]
 sending on interface l_host11 to db05::2
@@ -156,6 +159,7 @@ bash-4.3#
 
 
 
+```
 * After sending packet, vpp trace in a:
 ```
 
@@ -216,14 +220,15 @@ SeqNo = 0x2
 
 vpp#     
 
+```
 
 * At Switch S1 , which is a P4 Enabled Switch , we insert the Incremental Hop-By-Hop Header . At interface S11, There was no incremental
   Header , it had only the Pre-allocated header inserted by the VPP at node a.
-```
 
 ![S1-S11_Snapshot](./snapshots/S1-S11_Sanpshot.png?raw=true "Wireshark-S1-S11_Snapshot")
 
 At interface S12 , P4 had inserted the new incremental Hop-By-Hop Header along with Pre-allocated header inserted by the VPP at node a
+
 
 ![S1-S12_Snapshot](./snapshots/S1-S12_Snapshot.png?raw=true "Wireshark-S1-S12_Snapshot")
 
@@ -279,15 +284,17 @@ Packet 1
 vpp#  
 
 
+```
 * At Switch S2 , which is a P4 Enabled Switch , we insert the Incremental Hop-By-Hop Header . At interface S21, There was one incremental
   Header which was added at the Switch S1 , also it has the Pre-allocated header inserted by the VPP at node a and node b.
-```
+
 
 ![S2-S21_Snapshot](./snapshots/S2-S21_Snapshot.png?raw=true "Wireshark-S2-S21_Snapshot")
-
 At interface S22 , P4 had inserted the another incremental Hop-By-Hop Header along with Pre-allocated header inserted by the VPP at node a and node b. 
 
 ![S2-S22_Snapshot](./snapshots/S2-S22_Snapshot.png?raw=true "Wireshark-S2-S22_Snapshot")
+
+
 
 
 * Vpp trace in c:
@@ -349,8 +356,9 @@ Packet 1
 
 vpp#   
 
-* At Host2 , when we recieve the packet , it has been stripped with IOAM headers (both Incremental and Pre-allocated one)
 ```
+* At Host2 , when we recieve the packet , it has been stripped with IOAM headers (both Incremental and Pre-allocated one)
 
 ![Host2_Snapshot](./snapshots/Host2_Snapshot.png?raw=true "Wireshark-Host2_Snapshot")
+
 
