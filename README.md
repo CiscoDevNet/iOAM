@@ -72,14 +72,18 @@ following IETF internet drafts:
   network.
 
 - [Data Formats for In-band
-  OAM](https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-00)
+  OAM](https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-02)
   discusses the data types and data formats for in-band OAM data
   records.
 
-- [Encapsulations for In-band OAM
-  Data](https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05) 
-  outlines how in-band OAM data records can be transported in protocols such as
-  NSH, Segment Routing, VXLAN-GPE, native IPv6 (via extension header), and IPv4.
+- Encapsulations for IOAM data. These drafts describe how IOAM data fields
+  are encapsulated in "parent" protocols: 
+   - [GRE encapsulation for IOAM data](https://tools.ietf.org/html/draft-weis-ippm-ioam-gre-00)
+   - [NSH encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-sfc-ioam-nsh-01)
+   - [Geneve encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-00)
+   - [VXLAN-GPE encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-00)
+   - IPv6 encapsulation for IOAM data (coming)
+   - SRv6 encapsulation for IOAM data (coming)
 
 - [Proof of
   Transit](https://tools.ietf.org/html/draft-brockners-proof-of-transit-03)
@@ -90,6 +94,8 @@ following IETF internet drafts:
   document allow to securely verify whether all packets traversed all
   those nodes of a given path that they are supposed to visit.
 
+- [Export of IOAM data in raw format](https://www.ietf.org/id/draft-spiegel-ippm-ioam-rawexport-00.txt) describes how IOAM information can be exported in raw, i.e. uninterpreted, format from network devices to systems, such as monitoring or analytics systems using IPFIX.
+
 A wide variety of use-cases can leverage IOAM:
 
 * Service/Quality Assurance – Fabric OAM
@@ -99,7 +105,8 @@ A wide variety of use-cases can leverage IOAM:
 * Micro-Service/NFV deployments
   * Smart service selection based on network criteria - "M-Anycast"
     (intelligent micro-service selection and load-balancing):
-    https://github.com/CiscoDevNet/iOAM/tree/master/M-Anycast
+    https://github.com/CiscoDevNet/iOAM/tree/master/M-Anycast.
+    For the VPP implementation of m-anycast, see https://docs.fd.io/vpp/17.04/ioam_manycast_doc.html
 * Operations Support – Fabric Visibility
   * Network Fault Detection and Fault Isolation through
     efficient network probing
@@ -116,6 +123,7 @@ A wide variety of use-cases can leverage IOAM:
 - Documentation for the in-band OAM in VPP:
   - Overview user guide: https://docs.fd.io/vpp/16.12/md_plugins_ioam-plugin_ioam_Readme.html
   - Command line references:
+    - https://docs.fd.io/vpp/17.04/ioam_plugin_doc.html
     - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_encap.html
     - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_export.html
     - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_lib-pot.html
@@ -210,7 +218,7 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
               Lapukhov, P., Chang, R., "Data Formats for in-situ
-              OAM", October 2016.
+              OAM", March 2018.
 
  - [draft-brockners-inband-oam-transport]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
@@ -221,7 +229,7 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
  - [draft-brockners-proof-of-transit]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
-              "Proof of transit", October 2016.
+              "Proof of transit", March 2018.
 
  - [SPUD]
               Hildebrand, J. and B. Trammell, "Substrate Protocol for
@@ -257,8 +265,8 @@ Former team members include:
 In development
 
 [draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-03
-[draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-03
-[draft-ietf-ippm-ioam-data]: https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-00
+[draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-04
+[draft-ietf-ippm-ioam-data]: https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-02
 [draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05
 [p4]: http://p4.org/p4/inband-network-telemetry/
 [SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
