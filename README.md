@@ -212,7 +212,8 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
               Lapukhov, P., Chang, R., "Requirements
-              for in-situ OAM", October 2016.
+              for in-situ OAM", October 2016. (no longer maintained.
+              Draft served the purpose of fueling the discussion at IETF).
 
  - [draft-ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
@@ -220,11 +221,32 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
               Lapukhov, P., Chang, R., "Data Formats for in-situ
               OAM", March 2018.
 
+ - [draft-brockners-sfc-ioam-nsh]
+              Brockners et al., "NSH Encapsulation for In-situ OAM Data",
+              March 2018 
+
+ - [draft-brockners-ippm-ioam-vxlan-gpe]
+              Brockners et al., "VXLAN-GPE Encapsulation for In-situ OAM Data",
+              March 2018
+
+ - [draft-brockners-ippm-ioam-geneve]
+              Brockners et al., "Geneve Encapsulation for In-situ OAM Data",
+              March 2018
+
+ - [draft-weis-ippm-ioam-gre] 
+              Weis et al., "GRE Encapsulation for In-situ OAM Data",
+              March 2018
+
+ - [draft-spiegel-ippm-ioam-rawexport]
+              Spiegel et al., "In-situ OAM raw data export with IPFIX",
+              March 2018
+
  - [draft-brockners-inband-oam-transport]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
               Lapukhov, P., Chang, R., "Encapsulations for in-situ
-              OAM", October 2016.
+              OAM", October 2016. (replaced by individual encapsulation
+              drafts - see above).
 
  - [draft-brockners-proof-of-transit]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
@@ -268,6 +290,11 @@ In development
 [draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-04
 [draft-ietf-ippm-ioam-data]: https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-02
 [draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05
+[draft-spiegel-ippm-ioam-rawexport]:https://www.ietf.org/id/draft-spiegel-ippm-ioam-rawexport-00.txt
+[draft-brockners-sfc-ioam-nsh]:https://tools.ietf.org/html/draft-brockners-sfc-ioam-nsh-01
+[draft-brockners-ippm-ioam-vxlan-gpe]:https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-00
+[draft-brockners-ippm-ioam-geneve]:https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-00
+[draft-weis-ippm-ioam-gre]:https://tools.ietf.org/html/draft-weis-ippm-ioam-gre-00
 [p4]: http://p4.org/p4/inband-network-telemetry/
 [SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
 [fd.io]: http://fd.io
