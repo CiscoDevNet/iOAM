@@ -109,7 +109,8 @@ A wide variety of use-cases can leverage IOAM:
     For the VPP implementation of m-anycast, see https://docs.fd.io/vpp/17.04/ioam_manycast_doc.html
 * Operations Support – Fabric Visibility
   * Network Fault Detection and Fault Isolation through
-    efficient network probing
+    efficient network probing: By using IOAM's loopback option
+    an issue can be identified within a single packet roundtrip time.
   * Path Tracing –  debug ECMP, brown-outs, network delays
   * Derive Traffic Matrix
   * Custom/Service Level Telemetry 
