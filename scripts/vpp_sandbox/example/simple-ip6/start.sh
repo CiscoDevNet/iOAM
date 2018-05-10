@@ -13,4 +13,7 @@ lxc-attach -n host1 -- ip -6 address add db00::2/64 dev l_host11
 lxc-attach -n host1 -- ip -6 route add default via db00::1
 lxc-attach -n host2 -- ip -6 address add db03::2/64 dev l_host21
 lxc-attach -n host2 -- ip -6 route add default via db03::1
-
+sudo lxc-attach -n c -- mkdir /dev/net
+sudo lxc-attach -n c -- mknod /dev/net/tun c 10 200
+sudo lxc-attach -n c -- chmod 666 /dev/net/tun
+sudo lxc-attach -n c -- ifconfig tap0 10.255.0.254/24
