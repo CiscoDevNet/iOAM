@@ -184,3 +184,27 @@ Packet 1
   IP6_HOP_BY_HOP_OPTIONS: db00::2 -> db03::2
 ```
 
+# Export
+The collector.py is started to receive and parse the IOAM data exported on node c.
+The exported data can be viewed on the host as follows:
+```
+sudo tail -f /proc/$(sudo lxc-info -n c -p -H)/root/tmp/ioam-data-sample.txt
+
+db00::2 to db03::2 6690 3, 966325294 -> 2, 971474044 -> 1, 961519107
+db00::2 to db03::2 6691 3, 967317648 -> 2, 972484980 -> 1, 962521879
+db00::2 to db03::2 6692 3, 968351484 -> 2, 973501555 -> 1, 963524708
+db00::2 to db03::2 6693 3, 969317192 -> 2, 974499342 -> 1, 964528429
+db00::2 to db03::2 6694 3, 970318852 -> 2, 975502012 -> 1, 965540651
+db00::2 to db03::2 6695 3, 971332730 -> 2, 976509306 -> 1, 966539929
+db00::2 to db03::2 6696 3, 972347158 -> 2, 977519302 -> 1, 967545732
+db00::2 to db03::2 6697 3, 973316222 -> 2, 978502331 -> 1, 968541017
+db00::2 to db03::2 6698 3, 974313226 -> 2, 979498692 -> 1, 969543759
+db00::2 to db03::2 6699 3, 975387686 -> 2, 980550040 -> 1, 970546839
+db00::2 to db03::2 6700 3, 976371491 -> 2, 981523733 -> 1, 971552793
+db00::2 to db03::2 6701 3, 977343506 -> 2, 982525945 -> 1, 972570596
+
+The output line is interpreted as:
+<src ip6> to <dst ip6> <sequence number> [trace in reverse order - <node id>, <timestamp>]
+
+```
+	
