@@ -58,12 +58,12 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 * Open 2 shells. 
 ```
    4.1 Shell 1: sudo lxc-attach -n a
-   4.2 Shell 1: telnet 0 5002; trace add af-packet-input 20 then quit
+   4.2 Shell 1: vppctl trace add af-packet-input 20 then quit
    4.3 Shell 1: sudo lxc-attach -n c
-   4.3 Shell 1: telnet 0 5002; trace add af-packet-input 20
+   4.3 Shell 1: vppctl trace add af-packet-input 20
    4.4 Shell 2:  Connect to host1 and start ping to host2 - lxc-attach -n host1, ping6 db03::2
    4.5 Shell 1: show trace, quit
-   4.6 Shell 1: sudo lxc-attach -n a, telnet 0 5002, show trace
+   4.6 Shell 1: sudo lxc-attach -n a, vppctl, show trace
 ```
 * To delete the topology and clear all containers:
 ```
@@ -78,7 +78,7 @@ git clone https://github.com/CiscoDevNet/iOAM.git
 
 ```
 VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox$ sudo lxc-attach -n a
-VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# telnet 0 5002
+VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# vppctl
 Trying 0.0.0.0...
 Connected to 0.
 Escape character is '^]'.
@@ -135,7 +135,7 @@ SeqNo = 0x9
 * After ping, vpp trace in c:
 ```
 VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox$ sudo lxc-attach -n c
-VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# telnet 0 5002
+VirtualBox:~/pinger/iOAM/scripts/vpp_sandbox# vppctl
 Trying 0.0.0.0...
 Connected to 0.
 Escape character is '^]'.
