@@ -21,4 +21,9 @@ sudo lxc-attach -n c -- touch /tmp/collector-in.log
 sudo lxc-attach -n c -- touch /tmp/collector-out.log
 sudo lxc-attach -n c -- touch /tmp/collector-err.log
 sudo lxc-attach -n c -- touch /tmp/daemon-ioam-collector.pid
+scapy_present=`pip list | grep scapy`
+if [ -z "$scapy_present"] 
+then 
+ pip install scapy 
+fi
 sudo lxc-attach -n c -- python /scratch/example/simple-ip6/collector.py start
