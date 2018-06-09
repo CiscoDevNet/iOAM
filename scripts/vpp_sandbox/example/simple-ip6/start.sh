@@ -12,10 +12,10 @@ sudo lxc-attach -n c -- chmod 666 /dev/net/tun
 lxc-attach -n a -- bash -c 'vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/simple-ip6/a.conf cli-listen /run/vpp/cli.sock } plugins {plugin dpdk_plugin.so { disable } }; echo "Sleeping for 10 seconds"; sleep 10'
 lxc-attach -n b -- bash -c 'vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/simple-ip6/b.conf cli-listen /run/vpp/cli.sock } plugins {plugin dpdk_plugin.so { disable } }; echo "Sleeping for 10 seconds"; sleep 10'
 lxc-attach -n c -- bash -c 'vpp unix { log /tmp/vpp.log full-coredump startup-config /scratch/example/simple-ip6/c.conf cli-listen /run/vpp/cli.sock } plugins {plugin dpdk_plugin.so { disable } }; echo "Sleeping for 10 seconds"; sleep 10'
-sudo lxc-attach -n host1 -- ip -6 route add default via db00::1
 sudo lxc-attach -n host1 -- ip -6 address add db00::2/64 dev l_host11
-sudo lxc-attach -n host2 -- ip -6 route add default via db03::1
+sudo lxc-attach -n host1 -- ip -6 route add default via db00::1
 sudo lxc-attach -n host2 -- ip -6 address add db03::2/64 dev l_host21
+sudo lxc-attach -n host2 -- ip -6 route add default via db03::1
 sudo lxc-attach -n c -- ifconfig tap0 10.255.0.254/24
 sudo lxc-attach -n c -- touch /tmp/collector-in.log
 sudo lxc-attach -n c -- touch /tmp/collector-out.log
