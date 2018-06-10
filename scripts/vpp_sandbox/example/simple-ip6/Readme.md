@@ -4,7 +4,20 @@ To create a topology as shown below, follow below stpes:
 
 ![Topology](./Topology-simple_ip6.png?raw=true "Topology")
 ## Prereq:
-* Pull the VPP code
+* Install VPP
+```
+Install VPP from 18.01:
+
+export UBUNTU="xenial"
+unset -v RELEASE
+export RELEASE=".stable.1801"
+sudo rm /etc/apt/sources.list.d/99fd.io.list
+echo "deb [trusted=yes] https://nexus.fd.io/content/repositories/fd.io$RELEASE.ubuntu.$UBUNTU.main/ ./" | sudo tee -a /etc/apt/sources.list.d/99fd.io.list
+sudo apt-get update
+sudo apt-get install vpp vpp-lib vpp-plugins vpp-dbg vpp-dev
+```
+
+*  VPP from source
 ```
 
 git clone https://gerrit.fd.io/r/p/vpp.git
