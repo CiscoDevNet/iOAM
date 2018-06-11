@@ -4,7 +4,9 @@ To create a topology as shown below, follow below stpes:
 
 ![Topology](./Topology-simple_ip6.png?raw=true "Topology")
 ## Prereq:
-* Install VPP
+### Install VPP
+
+#### From binaries
 ```
 Install VPP from 18.01:
 
@@ -16,8 +18,7 @@ echo "deb [trusted=yes] https://nexus.fd.io/content/repositories/fd.io$RELEASE.u
 sudo apt-get update
 sudo apt-get install vpp vpp-lib vpp-plugins vpp-dbg vpp-dev
 ```
-
-*  VPP from source
+#### From source
 ```
 
 git clone https://gerrit.fd.io/r/p/vpp.git
@@ -32,19 +33,13 @@ make V=0 PLATFORM=vpp TAG=vpp install-deb
  
 sudo dpkg -i *.deb
 ```
-* Delete dpdk plugin:
-
-```
-sudo rm -rf /usr/lib/vpp_plugins/dpdk*.so
-```
-this will save space for the vpp created
-
+### Setup this repo
 * Pull this repo:
 ``` 
 git clone https://github.com/CiscoDevNet/iOAM.git
 ```
 
-* Install LXC and copy templete file.
+* Install LXC and copy template file.
 
 		sudo apt-get install -y lxc lxctl lxc-templates util-linux
 		 cp <git_checkout_path>/iOAM/scripts/vpp_sandbox/lxc-vpp-ext /usr/share/lxc/templates/lxc-vpp-ext
