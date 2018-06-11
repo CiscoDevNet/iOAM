@@ -22,6 +22,10 @@ sudo apt-get install vpp vpp-lib vpp-plugins vpp-dbg vpp-dev
 ```
 
 git clone https://gerrit.fd.io/r/p/vpp.git
+
+git fetch
+
+git checkout origin/stable/1801
  
 make install-dep
  
