@@ -1,4 +1,4 @@
-host1_a h_host11 h_a1
-a_b h_a2 h_b1
-b_c h_b2 h_c1
-c_host2 h_c2 h_host21
+alpha_athos h_alpha1 h_athos1
+athos_porthos h_athos2 h_porthos1
+porthos_aramis h_porthos2 h_aramis1
+aramis_beta h_aramis2 h_beta1
