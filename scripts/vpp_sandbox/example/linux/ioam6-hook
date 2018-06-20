@@ -1,0 +1,2 @@
+#!/bin/sh
+cp -dpR /dev/ioam6 ${LXC_ROOTFS_MOUNT}/dev
