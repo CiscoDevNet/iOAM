@@ -23,8 +23,8 @@ SFC package installer
 if sys.platform.startswith('linux'):
     inst_requires = [
         'ipaddress',
-        'Flask >= 0.10.1',
-        'paramiko >= 1.15.2',
+        'Flask >= 0.12.3',
+        'paramiko >= 2.0.9',
         'pytest >= 2.6.4',
         'requests >= 2.5.1',
         'scapy-python3 >= 0.13',
@@ -34,8 +34,8 @@ if sys.platform.startswith('linux'):
 else:
     inst_requires = [
         'ipaddress',
-        'Flask >= 0.10.1',
-        'paramiko >= 1.15.2',
+        'Flask >= 0.12.3',
+        'paramiko >= 2.0.9',
         'pytest >= 2.6.4',
         'requests >= 2.5.1',
         'scapy-python3 >= 0.13',
