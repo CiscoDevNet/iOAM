@@ -1,24 +1,23 @@
-# In-band OAM (iOAM)
+# In-Situ OAM (IOAM)
 
-In-band OAM (or "in situ OAM") is an implementation study to record operational
+In-situ OAM (sometimes also referred to as inband OAM, which was the term originally used before IETF chose "in-situ OAM" for the technology) is an implementation study to record operational
 information in the packet while the packet traverses a path between two points
-in the network. In-band OAM is to complement current out-of-band OAM (sometimes
-also called "active" OAM) mechanisms based on ICMP or other types of probe
+in the network. In-situ OAM is to complement current out-of-band OAM (sometimes also called "active" OAM) mechanisms based on ICMP or other types of probe
 packets.
    
 # Overview
 
-"In-band" OAM describes an approach to record OAM and telemetry information
+"In-situ" OAM describes an approach to record OAM and telemetry information
 within the data packet while the data packet traverses a network or a
-particular network domain.  The term "in-band" refers to the fact that the OAM
+particular network domain.  The term "in-situ" refers to the fact that the OAM
 and telemetry data is carried within data packets rather than being sent
-within packets specifically dedicated to OAM.  In-band OAM mechanisms, which
+within packets specifically dedicated to OAM.  In-situ OAM mechanisms, which
 are sometimes also referred to as embedded network telemetry are a current
 topic of discussion.  In-band network telemetry has been defined for [P4].  The
 SPUD prototype [SPUD] uses a similar logic that allows
 network devices on the path between endpoints to participate explicitly in the
 tube outside the end-to-end context.  Even the IPv4 route-record option defined
-in [RFC0791] can be considered an in-band OAM mechanism.  In-band OAM
+in [RFC0791] can be considered an in-situ OAM mechanism.  In-situ OAM
 complements "out-of-band" mechanisms such as ping or traceroute, or more recent
 active probing mechanisms, as described in [I-D.lapukhov-dataplane-probe].
 In-band OAM mechanisms can be leveraged where current out-of-band mechanisms do
@@ -31,12 +30,12 @@ scenarios where probe traffic is potentially handled differently from
 regular data traffic by the network devices.  [RFC7276] presents an
 overview of OAM tools.
 
-Compared to probably the most basic example of "in-band OAM" which is
-IPv4 route recording [RFC0791], an in-band OAM approach has the
+Compared to probably the most basic example of "in-situ OAM" which is
+IPv4 route recording [RFC0791], an in-situ OAM approach has the
 following capabilities:
 
 - A flexible data format to allow different types of information to
-  be captured as part of an in-band OAM operation, including not
+  be captured as part of an in-situ OAM operation, including not
   only path tracing information, but additional operational and
   telemetry information such as timestamps, sequence numbers, or
   even generic data such as queue size, geo-location of the node
@@ -46,7 +45,7 @@ following capabilities:
   record the path a packet takes with a fixed amount of added data.
 
 - The ability to detect whether any nodes were skipped while
-  recording in-band OAM information (i.e., in-band OAM is not
+  recording in-situ OAM information (i.e., in-situ OAM is not
   supported or not enabled on those nodes).
    
 - The ability to actively process information in the packet, for
@@ -60,7 +59,7 @@ following capabilities:
 - The ability to include OAM data in various different transport
   protocols.
 
-A detailed description in-band OAM concepts, capabilities,
+A detailed description in-situ OAM concepts, capabilities,
 data-formats and transport encapsulations can be found in the
 following IETF internet drafts:
 
@@ -72,21 +71,22 @@ following IETF internet drafts:
   network.
 
 - [Data Formats for In-band
-  OAM](https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-02)
-  discusses the data types and data formats for in-band OAM data
+  OAM](https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-06)
+  discusses the data types and data formats for in-situ OAM data
   records.
 
 - Encapsulations for IOAM data. These drafts describe how IOAM data fields
   are encapsulated in "parent" protocols: 
    - [GRE encapsulation for IOAM data](https://tools.ietf.org/html/draft-weis-ippm-ioam-gre-00)
-   - [NSH encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-sfc-ioam-nsh-01)
-   - [Geneve encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-00)
-   - [VXLAN-GPE encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-00)
-   - IPv6 encapsulation for IOAM data (coming)
-   - SRv6 encapsulation for IOAM data (coming)
+   - [NSH encapsulation for IOAM data](https://tools.ietf.org/html/draft-ietf-sfc-ioam-nsh-01)
+   - [Geneve encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-02)
+   - [VXLAN-GPE encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-02)
+   - [IPv6 encapsulation for IOAM data] (https://tools.ietf.org/html/draft-ioametal-ippm-6man-ioam-ipv6-options-01)
+   - [SRv6 encapsulation for IOAM data] (https://tools.ietf.org/html/draft-ali-spring-ioam-srv6-01)
+   - [Encapsulations for protocols which use Ethertype for next protocol (e.g. GRE, Geneve)](https://tools.ietf.org/html/draft-weis-ippm-ioam-eth-01)
 
 - [Proof of
-  Transit](https://tools.ietf.org/html/draft-brockners-proof-of-transit-03)
+  Transit](https://tools.ietf.org/html/draft-ietf-sfc-proof-of-transit-02)
   defines mechanisms to securely prove that traffic transited the defined path.
   Several technologies such as traffic engineering, service function
   chaining, or policy based routing, are used to steer traffic through
@@ -98,20 +98,20 @@ following IETF internet drafts:
 
 A wide variety of use-cases can leverage IOAM:
 
-* Service/Quality Assurance – Fabric OAM
+* Service/Quality Assurance - Fabric OAM
   * Prove traffic SLAs, as opposed to probe-traffic SLAs; Overlay/Underlay
-  * Service/Path Verification (Proof of Transit) – prove that
+  * Service/Path Verification (Proof of Transit) - prove that
     traffic follows a pre-defined path
 * Micro-Service/NFV deployments
   * Smart service selection based on network criteria - "M-Anycast"
     (intelligent micro-service selection and load-balancing):
     https://github.com/CiscoDevNet/iOAM/tree/master/M-Anycast.
     For the VPP implementation of m-anycast, see https://docs.fd.io/vpp/17.04/ioam_manycast_doc.html
-* Operations Support – Fabric Visibility
+* Operations Support - Fabric Visibility
   * Network Fault Detection and Fault Isolation through
     efficient network probing: By using IOAM's loopback option
     an issue can be identified within a single packet roundtrip time.
-  * Path Tracing –  debug ECMP, brown-outs, network delays
+  * Path Tracing - debug ECMP, brown-outs, network delays
   * Derive Traffic Matrix
   * Custom/Service Level Telemetry 
 
@@ -119,9 +119,9 @@ A wide variety of use-cases can leverage IOAM:
 
 ## Dataplane implementation in FD.io/VPP
 
-- The in-band OAM dataplane is implemented as a plugin in VPP:
+- The in-situ OAM dataplane is implemented as a plugin in VPP:
   https://git.fd.io/cgit/vpp/tree/plugins/ioam-plugin.
-- Documentation for the in-band OAM in VPP:
+- Documentation for the in-situ OAM in VPP:
   - Overview user guide: https://docs.fd.io/vpp/16.12/md_plugins_ioam-plugin_ioam_Readme.html
   - Command line references:
     - https://docs.fd.io/vpp/17.04/ioam_plugin_doc.html
@@ -129,19 +129,23 @@ A wide variety of use-cases can leverage IOAM:
     - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_export.html
     - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_lib-pot.html
     - https://docs.fd.io/vpp/16.12/plugins_ioam-plugin_ioam_lib-trace.html
-- FD.io wiki on in-band OAM configuration: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands.
+- FD.io wiki on in-situ OAM configuration: https://wiki.fd.io/view/VPP/Command-line_Interface_(CLI)_Guide#Inline_IPv6_OAM_Commands.
 
+## Dataplane implementation in the Linux Kernel
+
+The University of Liege in Belgium created an IOAM implementation for the Linux Kernel:
+https://github.com/IurmanJ/kernel_ipv6_ioam
 
 ## Dataplane implementation in Cisco IOS
 
 The dataplane implementation in Cisco IOS is focused on IPv6 only.
 
-- Documentation for in-band OAM is found in the [In-band OAM for
+- Documentation for in-situ OAM is found in the [In-band OAM for
    IPv6](http://www.cisco.com/c/en/us/td/docs/ios-xml/ios/ipv6_nman/configuration/15-mt/ip6n-15-mt-book/ioam-ipv6.html) guide of the
 "IPv6 Network Management Configuration Guide, Cisco IOS Release
 15M&T". 
 - The IOS software can be downloaded from [here](https://software.cisco.com/download/navigator.html?mdfid=282774227&flowid=78210).
-IPv6 in-band OAM is supported on Cisco 1900/2900/3900/3900e Integrated Services Routers and vIOS on Cisco [VIRL] (http://virl.cisco.com/).
+IPv6 in-situ OAM is supported on Cisco 1900/2900/3900/3900e Integrated Services Routers and vIOS on Cisco [VIRL] (http://virl.cisco.com/).
 
 - To configure Proof-of-Transit for IOS, a series of 
   configuration parameters are needed. To help with
@@ -171,7 +175,7 @@ In-band OAM is reflected in two applications within OpenDaylight:
     -  https://git.opendaylight.org/gerrit/#/c/48766/
     -  https://git.opendaylight.org/gerrit/#/c/49636/
     
-- *Path-tracing*: Configuration application to enable and control in-band OAM tracing.
+- *Path-tracing*: Configuration application to enable and control in-situ OAM tracing.
   The tracing application will be included in a future version of
   OpenDaylight as a separate module.  For now, it is dependent on the SFC git (but not SFC functionality) and is available as below.
     - https://github.com/CiscoDevNet/iOAM/tree/master/sfc
@@ -180,11 +184,11 @@ In-band OAM is reflected in two applications within OpenDaylight:
 
 Honeycomb is a java-based agent that runs on the same host as a VPP instance, and exposes yang models via netconf or restconf to allow the management of that VPP instance from off box controllers like OpenDaylight.  The iOAM module in the Honeycomb agent helps exposes NETCONF and RESTCONF interfaces to allow iOAM trace and SFC verification features supported in the VPP instance behind it.
 
-- *Path-tracing*: Configuration agent application to enable and control in-band OAM tracing.
+- *Path-tracing*: Configuration agent application to enable and control in-situ OAM tracing.
   - The following are the feature commits.
     - https://gerrit.fd.io/r/#/c/3607/
     - https://gerrit.fd.io/r/#/c/4215/
-- *Proof-of-Transit*: Configuration agent application to enable and control in-band OAM Proof of Transit.
+- *Proof-of-Transit*: Configuration agent application to enable and control in-situ OAM Proof of Transit.
   - The following are the feature commits.
     - https://gerrit.fd.io/r/#/c/4268
 
@@ -291,7 +295,7 @@ In development
 [draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-04
 [draft-ietf-ippm-ioam-data]: https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-02
 [draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05
-[draft-spiegel-ippm-ioam-rawexport]:https://www.ietf.org/id/draft-spiegel-ippm-ioam-rawexport-00.txt
+[draft-spiegel-ippm-ioam-rawexport]:https://www.ietf.org/id/draft-spiegel-ippm-ioam-rawexport-02.txt
 [draft-brockners-sfc-ioam-nsh]:https://tools.ietf.org/html/draft-brockners-sfc-ioam-nsh-01
 [draft-brockners-ippm-ioam-vxlan-gpe]:https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-00
 [draft-brockners-ippm-ioam-geneve]:https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-00
