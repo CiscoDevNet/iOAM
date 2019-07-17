@@ -20,7 +20,7 @@ tube outside the end-to-end context.  Even the IPv4 route-record option defined
 in [RFC0791] can be considered an in-situ OAM mechanism.  In-situ OAM
 complements "out-of-band" mechanisms such as ping or traceroute, or more recent
 active probing mechanisms, as described in [I-D.lapukhov-dataplane-probe].
-In-band OAM mechanisms can be leveraged where current out-of-band mechanisms do
+In-situ OAM mechanisms can be leveraged where current out-of-band mechanisms do
 not apply or do not offer the desired characteristics or requirements, such as
 proving that a certain set of traffic takes a pre-defined path,
 strict congruency is desired, checking service level agreements for
@@ -77,13 +77,13 @@ following IETF internet drafts:
 
 - Encapsulations for IOAM data. These drafts describe how IOAM data fields
   are encapsulated in "parent" protocols: 
-   - [GRE encapsulation for IOAM data](https://tools.ietf.org/html/draft-weis-ippm-ioam-gre-00)
    - [NSH encapsulation for IOAM data](https://tools.ietf.org/html/draft-ietf-sfc-ioam-nsh-01)
    - [Geneve encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-02)
    - [VXLAN-GPE encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-02)
    - [IPv6 encapsulation for IOAM data](https://tools.ietf.org/html/draft-ioametal-ippm-6man-ioam-ipv6-options-01)
    - [SRv6 encapsulation for IOAM data](https://tools.ietf.org/html/draft-ali-spring-ioam-srv6-01)
-   - [Encapsulations for protocols which use Ethertype for next protocol (e.g. GRE, Geneve)](https://tools.ietf.org/html/draft-weis-ippm-ioam-eth-01)
+   - [Encapsulations for protocols which use Ethertype for next protocol (e.g. GRE, Geneve)](https://tools.ietf.org/html/draft-weis-ippm-ioam-eth-01). Note: For IPv4, it
+  is suggested to use a GRE header sequenced in with an IOAM header to carry IOAM data fields.
 
 - [Proof of
   Transit](https://tools.ietf.org/html/draft-ietf-sfc-proof-of-transit-02)
@@ -217,34 +217,40 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
               Lapukhov, P., Chang, R., "Requirements
-              for in-situ OAM", October 2016. (no longer maintained.
+              for inband OAM", October 2016. (no longer maintained.
               Draft served the purpose of fueling the discussion at IETF).
 
  - [draft-ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
               Lapukhov, P., Chang, R., "Data Formats for in-situ
-              OAM", March 2018.
+              OAM", July 2019.
 
- - [draft-brockners-sfc-ioam-nsh]
+ - [draft-ioametal-ippm-6man-ioam-ipv6-options]
+	      S. Bhandari et al., "In-situ OAM IPv6 Options", March 2019.
+
+ - [draft-ioametal-ippm-6man-ioam-ipv6-deployment]
+	      S. Bhandari et al., "Deployment Considerations for In-situ OAM with IPv6 Options", March 2019.
+
+ - [draft-ietf-sfc-ioam-nsh]
               Brockners et al., "NSH Encapsulation for In-situ OAM Data",
-              March 2018 
+              March 2019.
 
  - [draft-brockners-ippm-ioam-vxlan-gpe]
               Brockners et al., "VXLAN-GPE Encapsulation for In-situ OAM Data",
-              March 2018
+              July 2019.
 
  - [draft-brockners-ippm-ioam-geneve]
               Brockners et al., "Geneve Encapsulation for In-situ OAM Data",
-              March 2018
+              March 2019.
 
- - [draft-weis-ippm-ioam-gre] 
+ - [draft-weis-ippm-ioam-eth] 
               Weis et al., "GRE Encapsulation for In-situ OAM Data",
-              March 2018
+              March 2019.
 
  - [draft-spiegel-ippm-ioam-rawexport]
               Spiegel et al., "In-situ OAM raw data export with IPFIX",
-              March 2018
+              July 2019.
 
  - [draft-brockners-inband-oam-transport]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
@@ -253,10 +259,10 @@ Youtube In-Band OAM channel: https://www.youtube.com/channel/UC0WJOAKBTrftyosP59
               OAM", October 2016. (replaced by individual encapsulation
               drafts - see above).
 
- - [draft-brockners-proof-of-transit]
+ - [draft-ietf-sfc-proof-of-transit]
               Brockners, F., Bhandari, S., Dara, S., Pignataro, C.,
               Gedler, H., Leddy, J., Youell, S., Mozes, D., Mizrahi, T.,
-              "Proof of transit", March 2018.
+              "Proof of transit", March 2019.
 
  - [SPUD]
               Hildebrand, J. and B. Trammell, "Substrate Protocol for
@@ -291,15 +297,17 @@ Former team members include:
 # Current Status
 In development
 
+[draft-ioametal-ippm-6man-ioam-ipv6-options]:https://tools.ietf.org/html/draft-ioametal-ippm-6man-ioam-ipv6-options-02
+[draft-ioametal-ippm-6man-ioam-ipv6-deployment]:https://tools.ietf.org/html/draft-ioametal-ippm-6man-ioam-ipv6-deployment-01
 [draft-brockners-inband-oam-requirements]: https://tools.ietf.org/html/draft-brockners-inband-oam-requirements-03
-[draft-brockners-proof-of-transit]: https://tools.ietf.org/html/draft-brockners-proof-of-transit-04
+[draft-ietf-sfc-proof-of-transit]: https://tools.ietf.org/html/draft-ietf-sfc-proof-of-transit-02
 [draft-ietf-ippm-ioam-data]: https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-02
 [draft-brockners-inband-oam-transport]: https://tools.ietf.org/html/draft-brockners-inband-oam-transport-05
 [draft-spiegel-ippm-ioam-rawexport]:https://www.ietf.org/id/draft-spiegel-ippm-ioam-rawexport-02.txt
-[draft-brockners-sfc-ioam-nsh]:https://tools.ietf.org/html/draft-brockners-sfc-ioam-nsh-01
+[draft-ietf-sfc-ioam-nsh]:https://tools.ietf.org/html/draft-ietf-sfc-ioam-nsh-01
 [draft-brockners-ippm-ioam-vxlan-gpe]:https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-00
 [draft-brockners-ippm-ioam-geneve]:https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-00
-[draft-weis-ippm-ioam-gre]:https://tools.ietf.org/html/draft-weis-ippm-ioam-gre-00
+[draft-weis-ippm-ioam-eth]:https://tools.ietf.org/html/draft-weis-ippm-ioam-eth-01
 [p4]: http://p4.org/p4/inband-network-telemetry/
 [SPUD]: https://tools.ietf.org/html/draft-hildebrand-spud-prototype-03
 [fd.io]: http://fd.io
