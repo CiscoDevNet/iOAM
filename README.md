@@ -70,7 +70,7 @@ following IETF internet drafts:
   while the data packet traverses a path between two points in the
   network.
 
-- [Data Formats for In-band
+- [Data Formats for In-Situ
   OAM](https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-06)
   discusses the data types and data formats for in-situ OAM data
   records.
@@ -81,8 +81,8 @@ following IETF internet drafts:
    - [NSH encapsulation for IOAM data](https://tools.ietf.org/html/draft-ietf-sfc-ioam-nsh-01)
    - [Geneve encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-geneve-02)
    - [VXLAN-GPE encapsulation for IOAM data](https://tools.ietf.org/html/draft-brockners-ippm-ioam-vxlan-gpe-02)
-   - [IPv6 encapsulation for IOAM data] (https://tools.ietf.org/html/draft-ioametal-ippm-6man-ioam-ipv6-options-01)
-   - [SRv6 encapsulation for IOAM data] (https://tools.ietf.org/html/draft-ali-spring-ioam-srv6-01)
+   - [IPv6 encapsulation for IOAM data](https://tools.ietf.org/html/draft-ioametal-ippm-6man-ioam-ipv6-options-01)
+   - [SRv6 encapsulation for IOAM data](https://tools.ietf.org/html/draft-ali-spring-ioam-srv6-01)
    - [Encapsulations for protocols which use Ethertype for next protocol (e.g. GRE, Geneve)](https://tools.ietf.org/html/draft-weis-ippm-ioam-eth-01)
 
 - [Proof of
