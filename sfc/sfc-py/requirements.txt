@@ -2,7 +2,7 @@ ecdsa==0.13
 Flask>=0.12.3
 ipaddress==1.0.15
 itsdangerous==0.24
-Jinja2==2.8
+Jinja2==2.11.3
 MarkupSafe==0.23
 messages==0.0.0
 netifaces==0.10.4
