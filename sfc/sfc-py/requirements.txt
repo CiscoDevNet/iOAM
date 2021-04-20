@@ -9,7 +9,7 @@ netifaces==0.10.4
 paramiko>=2.0.9
 pexpect==4.0.1
 ptyprocess==0.5
-py==1.4.31
+py==1.10.0
 pytest==2.8.3
 requests==2.8.1
 scapy-python3==0.18
